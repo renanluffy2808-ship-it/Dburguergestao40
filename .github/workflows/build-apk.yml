@@ -44,6 +44,25 @@ jobs:
       - name: Compilar projeto web
         run: npm run build
 
+      - name: Criar ícone Android ausente
+        run: |
+          mkdir -p app/src/main/res/drawable
+          cat > app/src/main/res/drawable/app_icon.xml <<'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <vector xmlns:android="http://schemas.android.com/apk/res/android"
+              android:width="48dp"
+              android:height="48dp"
+              android:viewportWidth="48"
+              android:viewportHeight="48">
+              <path
+                  android:fillColor="#FF7A00"
+                  android:pathData="M0,0h48v48h-48z"/>
+              <path
+                  android:fillColor="#FFFFFF"
+                  android:pathData="M8,19 C8,13 14,10 24,10 C34,10 40,13 40,19 Z M8,23h32v5h-32z M11,31h26 C35,37 29,39 24,39 C19,39 13,37 11,31z"/>
+          </vector>
+          EOF
+          
       - name: Gerar APK
         run: gradle --no-daemon assembleDebug
 
