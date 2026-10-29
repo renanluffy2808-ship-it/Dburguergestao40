@@ -1,0 +1,79 @@
+
+name: Extrair Projeto D Burger
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "*.zip"
+
+permissions:
+  contents: write
+
+jobs:
+  extrair:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar repositorio
+        uses: actions/checkout@v4
+
+      - name: Conferir e extrair ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          ZIP=$(find . -maxdepth 1 -type f -iname '*.zip' -print -quit)
+
+          if [ -z "$ZIP" ]; then
+            echo "ERRO: nenhum arquivo ZIP encontrado na raiz."
+            exit 1
+          fi
+
+          mkdir -p /tmp/dburger
+          unzip -oq "$ZIP" -d /tmp/dburger
+
+          ROOT=""
+
+          while IFS= read -r -d '' arquivo; do
+            pasta="${arquivo%/*}"
+            if [ -f "$pasta/package.json" ]; then
+              ROOT="$pasta"
+              break
+            fi
+          done < <(find /tmp/dburger -type f -name render.yaml -print0)
+
+          if [ -z "$ROOT" ]; then
+            echo "ERRO: nao encontrei render.yaml junto com package.json."
+            find /tmp/dburger -maxdepth 4 -type f \
+              \( -name package.json -o -name render.yaml \)
+            exit 1
+          fi
+
+          rsync -a \
+            --exclude='.git/' \
+            --exclude='.github/workflows/extrair-projeto.yml' \
+            "$ROOT"/ ./
+
+          test -f package.json
+          test -f render.yaml
+
+          echo "Projeto extraido com sucesso."
+
+      - name: Salvar arquivos no GitHub
+        shell: bash
+        run: |
+          set -e
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A
+
+          if ! git diff --cached --quiet; then
+            git commit -m "Extrai projeto D Burger"
+            git push
+          else
+            echo "Nenhuma alteracao para salvar."
+          fi
+          
