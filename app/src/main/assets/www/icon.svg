@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#09090b" rx="110"/>
+  <rect x="30" y="30" width="452" height="452" fill="url(#amber-grad)" rx="96"/>
+  <defs>
+    <linearGradient id="amber-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+  </defs>
+  <rect x="110" y="160" width="292" height="50" rx="25" fill="#09090b"/>
+  <rect x="96" y="235" width="320" height="42" rx="21" fill="#09090b"/>
+  <rect x="110" y="302" width="292" height="46" rx="23" fill="#09090b"/>
+</svg>

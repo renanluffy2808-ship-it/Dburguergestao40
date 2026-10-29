@@ -1,0 +1,949 @@
+{
+  "config": {
+    "nomeHamburgueria": "D’ Burger Gestão",
+    "taxaMaquinetaPadrao": 0.7,
+    "taxaPix": 0,
+    "taxaDebito": 1.2,
+    "taxaCredito": 2.8,
+    "reservaOperacionalPercent": 12.1,
+    "metaMargemContribuicao": 35,
+    "previsaoVendasMensaisLanches": 600,
+    "custosFixos": [
+      {
+        "id": "cf-gas",
+        "nome": "Gás Industrial",
+        "valorMensal": 280,
+        "categoria": "gas"
+      },
+      {
+        "id": "cf-energia",
+        "nome": "Energia Elétrica",
+        "valorMensal": 450,
+        "categoria": "energia"
+      },
+      {
+        "id": "cf-agua",
+        "nome": "Água e Saneamento",
+        "valorMensal": 110,
+        "categoria": "agua"
+      },
+      {
+        "id": "cf-internet",
+        "nome": "Internet e Sistema",
+        "valorMensal": 120,
+        "categoria": "internet"
+      },
+      {
+        "id": "cf-manutencao",
+        "nome": "Manutenção de Equipamentos / Chapa",
+        "valorMensal": 150,
+        "categoria": "manutencao"
+      }
+    ],
+    "politicaDestinacao": {
+      "priorizarReposicaoEstoque": true,
+      "travarRetiradaSemReserva": true
+    },
+    "pedidosPagamentos": {
+      "whatsappLoja": "",
+      "chavePix": "",
+      "tipoChavePix": "aleatoria",
+      "titularPix": "D' Burger",
+      "instituicaoPix": "",
+      "provedorPix": "simulado",
+      "modoTestePix": true,
+      "mercadoPagoAccessToken": "",
+      "mercadoPagoPublicKey": "",
+      "tempoPreparoMinutos": 40,
+      "aceitaPix": true,
+      "aceitaCartao": true,
+      "aceitaDinheiro": true,
+      "permiteEntrega": true,
+      "permiteRetirada": true,
+      "taxaEntrega": 6,
+      "instrucoesEntrega": "Entregamos em embalagem térmica lacrada. Acompanhe a chegada pelo WhatsApp.",
+      "instrucoesRetirada": "Retire diretamente no balcão da loja informando o número do seu pedido."
+    },
+    "cardapioTheme": {
+      "nomeLoja": "D’ Burger",
+      "subtituloLoja": "Hambúrgueres Artesanais & Smash",
+      "mostrarSubtitulo": true,
+      "fraseApresentacao": "Faça seu pedido online sem complicações",
+      "mostrarFraseApresentacao": true,
+      "descricaoLoja": "Escolha seus itens favoritos, personalize os adicionais e envie direto para o nosso WhatsApp!",
+      "mostrarDescricaoLoja": true,
+      "mensagemBoasVindas": "Aberto para entrega e retirada",
+      "mostrarMensagemBoasVindas": true,
+      "tituloSecaoProdutos": "Nosso Cardápio",
+      "textoBotaoCarrinho": "Ver Meu Carrinho",
+      "textoBotaoAdicionar": "Adicionar",
+      "textoPersonalizarAdicionais": "Personalize seu pedido (Adicionais)",
+      "badgeStatusAberto": "Aberto agora",
+      "mostrarBadgeStatus": true,
+      "posicaoNomeLoja": "topo",
+      "posicaoLogo": "ao_lado_nome",
+      "posicaoSubtitulo": "abaixo_nome",
+      "posicaoImagemCapa": "topo",
+      "alinhamentoCabecalho": "esquerda",
+      "alinhamentoApresentacao": "esquerda",
+      "ordemSecoes": [
+        "capa",
+        "cabecalho",
+        "apresentacao",
+        "filtros",
+        "produtos"
+      ],
+      "fundoTipo": "solido",
+      "corFundo": "#09090b",
+      "corFundoSecao": "#18181b",
+      "corBordaCartao": "#27272a",
+      "imagemFundoUrl": "",
+      "imagemFundoOpacidade": 15,
+      "logotipoUrl": "",
+      "imagemCapaUrl": "",
+      "imagemCapaAltura": "medio",
+      "imagemCapaEnquadramento": "cover",
+      "sobreposicaoCapaOpacidade": 40,
+      "corTextoPrincipal": "#ffffff",
+      "corTextoSecundario": "#a1a1aa",
+      "corDestaque": "#f59e0b",
+      "corPreco": "#f59e0b",
+      "corBotao": "#f59e0b",
+      "corTextoBotao": "#09090b",
+      "corBadgeCategoria": "#f59e0b",
+      "fonteFamilia": "sans",
+      "tamanhoFonteBase": "normal",
+      "arredondamentoCartoes": "medio",
+      "arredondamentoBotoes": "medio",
+      "sombraCartoes": "suave",
+      "layoutProdutos": "grade",
+      "mostrarFotosProdutos": true,
+      "mostrarTempoPreparo": true,
+      "mostrarTaxaEntregaHeader": true
+    },
+    "estabelecimentoId": "default",
+    "slugLoja": "dburger"
+  },
+  "produtos": [
+    {
+      "id": "prod-x-burguer",
+      "nome": "X-Burguer",
+      "categoria": "Simples",
+      "descricao": "Pão tradicional, blend bovino 150g suculento e queijo prato derretido.",
+      "precoVenda": 22,
+      "tempoPreparoMinutos": 10,
+      "ativo": true
+    },
+    {
+      "id": "prod-x-salada",
+      "nome": "X-Salada",
+      "categoria": "Simples",
+      "descricao": "Pão tradicional, blend 150g, queijo prato, alface americana fresca, rodelas de tomate e maionese artesanal.",
+      "precoVenda": 24.5,
+      "tempoPreparoMinutos": 10,
+      "ativo": true
+    },
+    {
+      "id": "prod-x-cheddar",
+      "nome": "X-Cheddar",
+      "categoria": "Simples",
+      "descricao": "Pão tradicional, blend 150g e fatias generosas de cheddar cremoso derretido.",
+      "precoVenda": 24,
+      "tempoPreparoMinutos": 10,
+      "ativo": true
+    },
+    {
+      "id": "prod-x-bacon",
+      "nome": "X-Bacon",
+      "categoria": "Simples",
+      "descricao": "Pão tradicional, blend 150g, queijo prato e tiras crocantes de bacon especial.",
+      "precoVenda": 27,
+      "tempoPreparoMinutos": 12,
+      "ativo": true
+    },
+    {
+      "id": "prod-x-egg-bacon",
+      "nome": "X-Egg Bacon",
+      "categoria": "Simples",
+      "descricao": "Pão tradicional, blend 150g, queijo prato, ovo na chapa com gema macia e bacon crocante.",
+      "precoVenda": 29,
+      "tempoPreparoMinutos": 12,
+      "ativo": true
+    },
+    {
+      "id": "prod-x-tudo",
+      "nome": "X-Tudo",
+      "categoria": "Simples",
+      "descricao": "O clássico completo: pão tradicional, blend 150g, queijo, ovo, bacon, calabresa, alface, tomate e maionese.",
+      "precoVenda": 32.5,
+      "tempoPreparoMinutos": 14,
+      "ativo": true
+    },
+    {
+      "id": "prod-x-calabresa",
+      "nome": "X-Calabresa",
+      "categoria": "Simples",
+      "descricao": "Pão tradicional, blend 150g, queijo prato derretido e fatias douradas de calabresa especial.",
+      "precoVenda": 25.5,
+      "tempoPreparoMinutos": 11,
+      "ativo": true
+    },
+    {
+      "id": "prod-pao-arabe-sol",
+      "nome": "Pão Árabe de Sol",
+      "categoria": "Simples",
+      "descricao": "Pão árabe recheado com carne de sol desfiada na manteiga de garrafa, queijo coalho e maionese da casa.",
+      "precoVenda": 29.9,
+      "tempoPreparoMinutos": 12,
+      "ativo": true
+    },
+    {
+      "id": "prod-dburguer",
+      "nome": "D’burguer",
+      "categoria": "Artesanal",
+      "descricao": "O carro-chefe: Pão brioche, blend artesanal 150g, queijo cheddar fatiado, bacon crocante, cebola caramelizada e maionese da casa.",
+      "precoVenda": 34.9,
+      "tempoPreparoMinutos": 12,
+      "ativo": true
+    },
+    {
+      "id": "prod-bananinha-coalho",
+      "nome": "Bananinha Coalho",
+      "categoria": "Artesanal",
+      "descricao": "Pão brioche, blend 150g, queijo coalho tostado na chapa, bananinha da terra caramelizada e barbecue defumado.",
+      "precoVenda": 36.9,
+      "tempoPreparoMinutos": 13,
+      "ativo": true
+    },
+    {
+      "id": "prod-artesanal-supreme",
+      "nome": "Artesanal Supreme",
+      "categoria": "Artesanal",
+      "descricao": "Pão brioche, blend 150g, duplo cheddar, fatias fartas de bacon e cebola crispy crocante.",
+      "precoVenda": 37.5,
+      "tempoPreparoMinutos": 12,
+      "ativo": true
+    },
+    {
+      "id": "prod-artesanal-salad",
+      "nome": "Artesanal Salad",
+      "categoria": "Artesanal",
+      "descricao": "Pão brioche, blend 150g, queijo prato especial, alface americana fresca, rodelas selecionadas de tomate e maionese verde.",
+      "precoVenda": 31.9,
+      "tempoPreparoMinutos": 10,
+      "ativo": true
+    },
+    {
+      "id": "prod-double-cheese",
+      "nome": "Double Cheese",
+      "categoria": "Artesanal",
+      "descricao": "Para os amantes de queijo: Pão brioche, dois blends artesanais de 150g (300g total) e camadas quádruplas de cheddar.",
+      "precoVenda": 44.9,
+      "tempoPreparoMinutos": 15,
+      "ativo": true
+    },
+    {
+      "id": "prod-artesanal-defumado",
+      "nome": "Artesanal Defumado",
+      "categoria": "Artesanal",
+      "descricao": "Pão brioche, blend 150g defumado, bacon crocante, barbecue rústico e cebola caramelizada.",
+      "precoVenda": 35.9,
+      "tempoPreparoMinutos": 12,
+      "ativo": true
+    },
+    {
+      "id": "prod-smash-simples",
+      "nome": "Smash Simples",
+      "categoria": "Smash",
+      "descricao": "Pão brioche fofinho, 1 carne smash 80g prensada com crostinha crocante e cheddar fatiado.",
+      "precoVenda": 18.9,
+      "tempoPreparoMinutos": 8,
+      "ativo": true
+    },
+    {
+      "id": "prod-smash-cheese-duplo",
+      "nome": "Smash Cheese Duplo",
+      "categoria": "Smash",
+      "descricao": "Pão brioche, 2 carnes smash 80g com crosta e camadas duplas de queijo cheddar.",
+      "precoVenda": 26.9,
+      "tempoPreparoMinutos": 9,
+      "ativo": true
+    },
+    {
+      "id": "prod-smash-salada",
+      "nome": "Smash Salada",
+      "categoria": "Smash",
+      "descricao": "Pão brioche, 2 carnes smash 80g, queijo cheddar, alface, tomate fresco e maionese da casa.",
+      "precoVenda": 28.5,
+      "tempoPreparoMinutos": 9,
+      "ativo": true
+    },
+    {
+      "id": "prod-smash-bacon",
+      "nome": "Smash Bacon",
+      "categoria": "Smash",
+      "descricao": "Pão brioche, 2 carnes smash 80g com crosta perfeita, cheddar duplo e tiras crocantes de bacon.",
+      "precoVenda": 30.9,
+      "tempoPreparoMinutos": 9,
+      "ativo": true
+    },
+    {
+      "id": "prod-smash-sertanejo",
+      "nome": "Smash Sertanejo",
+      "categoria": "Smash",
+      "descricao": "Pão brioche, 2 carnes smash 80g, queijo coalho chapeado e carne de sol desfiada na manteiga.",
+      "precoVenda": 33.9,
+      "tempoPreparoMinutos": 10,
+      "ativo": true
+    },
+    {
+      "id": "prod-smash-crispy",
+      "nome": "Smash Crispy",
+      "categoria": "Smash",
+      "descricao": "Pão brioche, 2 carnes smash 80g, queijo cheddar derretido e muita cebola crispy crocante.",
+      "precoVenda": 29.9,
+      "tempoPreparoMinutos": 9,
+      "ativo": true
+    },
+    {
+      "id": "prod-smash-caramelizado",
+      "nome": "Smash Caramelizado",
+      "categoria": "Smash",
+      "descricao": "Pão brioche, 2 carnes smash 80g, queijo cheddar, fatias de bacon e cebola caramelizada na chapa.",
+      "precoVenda": 31.5,
+      "tempoPreparoMinutos": 9,
+      "ativo": true
+    }
+  ],
+  "categorias": [
+    {
+      "id": "cat-artesanal",
+      "nome": "Artesanal",
+      "descricao": "Burgers com blends artesanais especiais de 150g no pão brioche",
+      "ordem": 1,
+      "ativa": true
+    },
+    {
+      "id": "cat-smash",
+      "nome": "Smash",
+      "descricao": "Burgers prensados na chapa ultra quente com crosta crocante",
+      "ordem": 2,
+      "ativa": true
+    },
+    {
+      "id": "cat-simples",
+      "nome": "Simples",
+      "descricao": "Clássicos tradicionais da hamburgueria",
+      "ordem": 3,
+      "ativa": true
+    },
+    {
+      "id": "cat-bebidas",
+      "nome": "Bebidas",
+      "descricao": "Refrigerantes, sucos naturais e águas",
+      "ordem": 4,
+      "ativa": true
+    },
+    {
+      "id": "cat-promocoes",
+      "nome": "Promoções",
+      "descricao": "Combos e ofertas especiais da semana",
+      "ordem": 5,
+      "ativa": true
+    },
+    {
+      "id": "cat-sobremesas",
+      "nome": "Acompanhamentos",
+      "descricao": "Batatas fritas e porções",
+      "ordem": 6,
+      "ativa": true
+    }
+  ],
+  "adicionais": [
+    {
+      "id": "adic-bacon-extra",
+      "nome": "Bacon extra",
+      "preco": 3,
+      "descricao": "Tiras generosas de bacon artesanal crocante defumado",
+      "ativo": true,
+      "ordem": 1,
+      "maximoPorLanche": 4,
+      "minimoPorLanche": 0,
+      "obrigatorio": false,
+      "categoriasPermitidas": [
+        "Artesanal",
+        "Smash",
+        "Simples"
+      ]
+    },
+    {
+      "id": "adic-cheddar-extra",
+      "nome": "Cheddar extra",
+      "preco": 2.5,
+      "descricao": "Cheddar cremoso fatiado derretido na chapa",
+      "ativo": true,
+      "ordem": 2,
+      "maximoPorLanche": 3,
+      "minimoPorLanche": 0,
+      "obrigatorio": false,
+      "categoriasPermitidas": [
+        "Artesanal",
+        "Smash",
+        "Simples"
+      ]
+    },
+    {
+      "id": "adic-mucarela-extra",
+      "nome": "Muçarela extra",
+      "preco": 2.5,
+      "descricao": "Queijo muçarela derretido com fios elásticos",
+      "ativo": true,
+      "ordem": 3,
+      "maximoPorLanche": 3,
+      "minimoPorLanche": 0,
+      "obrigatorio": false,
+      "categoriasPermitidas": [
+        "Artesanal",
+        "Smash",
+        "Simples"
+      ]
+    },
+    {
+      "id": "adic-carne-extra",
+      "nome": "Carne extra",
+      "preco": 5,
+      "descricao": "Hambúrguer artesanal extra 150g grelhado no ponto",
+      "ativo": true,
+      "ordem": 4,
+      "maximoPorLanche": 2,
+      "minimoPorLanche": 0,
+      "obrigatorio": false,
+      "categoriasPermitidas": [
+        "Artesanal",
+        "Simples"
+      ]
+    },
+    {
+      "id": "adic-ovo-extra",
+      "nome": "Ovo extra",
+      "preco": 2,
+      "descricao": "Ovo frito na chapa com gema macia",
+      "ativo": true,
+      "ordem": 5,
+      "maximoPorLanche": 2,
+      "minimoPorLanche": 0,
+      "obrigatorio": false,
+      "categoriasPermitidas": [
+        "Artesanal",
+        "Smash",
+        "Simples"
+      ]
+    },
+    {
+      "id": "adic-cebola-caramelizada",
+      "nome": "Cebola caramelizada",
+      "preco": 2,
+      "descricao": "Cebola fresca dourada e caramelizada na manteiga",
+      "ativo": true,
+      "ordem": 6,
+      "maximoPorLanche": 2,
+      "minimoPorLanche": 0,
+      "obrigatorio": false,
+      "categoriasPermitidas": [
+        "Artesanal",
+        "Smash",
+        "Simples"
+      ]
+    },
+    {
+      "id": "adic-picles-artesanal",
+      "nome": "Picles artesanal",
+      "preco": 2,
+      "descricao": "Fatias finas de picles crocante agridoce da casa",
+      "ativo": true,
+      "ordem": 7,
+      "maximoPorLanche": 2,
+      "minimoPorLanche": 0,
+      "obrigatorio": false,
+      "categoriasPermitidas": [
+        "Artesanal",
+        "Smash",
+        "Simples"
+      ]
+    },
+    {
+      "id": "adic-maionese-casa",
+      "nome": "Maionese da casa (pote 50ml)",
+      "preco": 3,
+      "descricao": "Nossa famosa maionese verde artesanal com ervas frescas",
+      "ativo": true,
+      "ordem": 8,
+      "maximoPorLanche": 4,
+      "minimoPorLanche": 0,
+      "obrigatorio": false,
+      "categoriasPermitidas": [
+        "Artesanal",
+        "Smash",
+        "Simples",
+        "Acompanhamentos"
+      ]
+    }
+  ],
+  "pedidos": [
+    {
+      "id": "ped-1792950206672-108",
+      "numeroPedido": 108,
+      "numero": 108,
+      "dataHora": "2026-10-25T17:43:26.672Z",
+      "status": "SAIU_ENTREGA",
+      "statusPagamento": "AGUARDANDO_PAGAMENTO",
+      "itens": [
+        {
+          "produtoId": "prod-dburguer",
+          "nome": "D’burguer Especial",
+          "nomeProduto": "D’burguer Especial",
+          "quantidade": 1,
+          "precoBaseLanche": 34.9,
+          "precoUnitario": 40.9,
+          "cmvUnitarioMomento": 0,
+          "subtotal": 40.9,
+          "precoTotal": 40.9,
+          "adicionais": [
+            {
+              "id": "adic-bacon-extra",
+              "nome": "Bacon extra",
+              "preco": 3,
+              "precoUnitario": 3,
+              "quantidade": 2,
+              "subtotal": 6
+            }
+          ]
+        }
+      ],
+      "subtotal": 40.9,
+      "valorBruto": 40.9,
+      "desconto": 0,
+      "valorFinal": 46.9,
+      "formaPagamento": "PIX",
+      "taxaPagamentoPercent": 0,
+      "valorTaxa": 0,
+      "valorLiquidoRecebido": 46.9,
+      "cmvTotalMomento": 0,
+      "reservaOperacionalMomento": 0,
+      "valorReposicaoEstoqueMomento": 0,
+      "lucroEstimadoMomento": 0,
+      "tipoAtendimento": "ENTREGA",
+      "clienteNome": "Lucas Oliveira",
+      "clienteTelefone": "11981112222",
+      "enderecoEntrega": {
+        "rua": "Rua Augusta",
+        "numero": "500",
+        "bairro": "Consolação",
+        "cidade": "São Paulo"
+      },
+      "taxaEntrega": 6,
+      "precisaTroco": false,
+      "tempoPreparoEstimadoMinutos": 40,
+      "whatsappEnviado": false,
+      "origemPedido": "CARDAPIO_DIGITAL",
+      "tokenPublico": "2170d61720984840d9eb399798ea0008"
+    },
+    {
+      "id": "ped-1792950156237-107",
+      "numeroPedido": 107,
+      "numero": 107,
+      "dataHora": "2026-10-25T17:42:36.237Z",
+      "status": "PENDENTE",
+      "statusPagamento": "AGUARDANDO_PAGAMENTO",
+      "itens": [
+        {
+          "produtoId": "prod-dburguer",
+          "nome": "D’burguer Especial",
+          "nomeProduto": "D’burguer Especial",
+          "quantidade": 1,
+          "precoBaseLanche": 34.9,
+          "precoUnitario": 40.9,
+          "cmvUnitarioMomento": 0,
+          "subtotal": 40.9,
+          "precoTotal": 40.9,
+          "adicionais": [
+            {
+              "id": "adic-bacon-extra",
+              "nome": "Bacon extra",
+              "preco": 3,
+              "precoUnitario": 3,
+              "quantidade": 2,
+              "subtotal": 6
+            }
+          ]
+        }
+      ],
+      "subtotal": 40.9,
+      "valorBruto": 40.9,
+      "desconto": 0,
+      "valorFinal": 46.9,
+      "formaPagamento": "PIX",
+      "taxaPagamentoPercent": 0,
+      "valorTaxa": 0,
+      "valorLiquidoRecebido": 46.9,
+      "cmvTotalMomento": 0,
+      "reservaOperacionalMomento": 0,
+      "valorReposicaoEstoqueMomento": 0,
+      "lucroEstimadoMomento": 0,
+      "tipoAtendimento": "ENTREGA",
+      "clienteNome": "Lucas Oliveira",
+      "clienteTelefone": "11981112222",
+      "enderecoEntrega": {
+        "rua": "Rua Augusta",
+        "numero": "500",
+        "bairro": "Consolação",
+        "cidade": "São Paulo"
+      },
+      "taxaEntrega": 6,
+      "precisaTroco": false,
+      "tempoPreparoEstimadoMinutos": 40,
+      "whatsappEnviado": false,
+      "origemPedido": "CARDAPIO_DIGITAL",
+      "tokenPublico": "8782e68bb5549ad75600dcbfee6a2c35"
+    },
+    {
+      "id": "ped-1792949709922-106",
+      "numeroPedido": 106,
+      "numero": 106,
+      "dataHora": "2026-10-25T17:35:09.922Z",
+      "status": "EM_PREPARO",
+      "statusPagamento": "AGUARDANDO_PAGAMENTO",
+      "itens": [
+        {
+          "produtoId": "prod-dburguer",
+          "nome": "D’burguer",
+          "nomeProduto": "D’burguer",
+          "quantidade": 2,
+          "precoBaseLanche": 34.9,
+          "precoUnitario": 40.4,
+          "cmvUnitarioMomento": 0,
+          "subtotal": 80.8,
+          "precoTotal": 80.8,
+          "adicionais": [
+            {
+              "id": "adic-bacon-extra",
+              "nome": "Bacon extra",
+              "preco": 3,
+              "precoUnitario": 3,
+              "quantidade": 1,
+              "subtotal": 3
+            },
+            {
+              "id": "adic-cheddar-extra",
+              "nome": "Cheddar extra",
+              "preco": 2.5,
+              "precoUnitario": 2.5,
+              "quantidade": 1,
+              "subtotal": 2.5
+            }
+          ]
+        }
+      ],
+      "subtotal": 80.8,
+      "valorBruto": 80.8,
+      "desconto": 0,
+      "valorFinal": 86.8,
+      "formaPagamento": "PIX",
+      "taxaPagamentoPercent": 0,
+      "valorTaxa": 0,
+      "valorLiquidoRecebido": 86.8,
+      "cmvTotalMomento": 0,
+      "reservaOperacionalMomento": 0,
+      "valorReposicaoEstoqueMomento": 0,
+      "lucroEstimadoMomento": 0,
+      "tipoAtendimento": "ENTREGA",
+      "clienteNome": "Mariana Santos",
+      "clienteTelefone": "11977776666",
+      "enderecoEntrega": {
+        "rua": "Rua Oscar Freire",
+        "numero": "250",
+        "bairro": "Jardins",
+        "cidade": "São Paulo"
+      },
+      "taxaEntrega": 6,
+      "precisaTroco": false,
+      "tempoPreparoEstimadoMinutos": 40,
+      "whatsappEnviado": false,
+      "origemPedido": "CARDAPIO_DIGITAL",
+      "tokenPublico": "69be619f862c01705ecd976d66ce1289",
+      "pixChargeId": "sim-pix-1792949719603-985",
+      "pixQrCode": "https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=00020126580014BR.GOV.BCB.PIX01141234567800019052040000530398654086.805802BR5915DBURGER%20GESTAO6009SAO%20PAULO62170513PED1066304ABCD",
+      "pixCopiaECola": "00020126580014BR.GOV.BCB.PIX01141234567800019052040000530398654086.805802BR5915DBURGER GESTAO6009SAO PAULO62170513PED1066304ABCD",
+      "pixExpiracao": "2026-10-25T17:55:19.603Z"
+    },
+    {
+      "id": "ped-1792949698460-105",
+      "numeroPedido": 105,
+      "numero": 105,
+      "dataHora": "2026-10-25T17:34:58.460Z",
+      "status": "PENDENTE",
+      "statusPagamento": "AGUARDANDO_PAGAMENTO",
+      "itens": [
+        {
+          "produtoId": "prod-dburguer",
+          "nome": "D’burguer",
+          "nomeProduto": "D’burguer",
+          "quantidade": 1,
+          "precoBaseLanche": 34.9,
+          "precoUnitario": 37.9,
+          "cmvUnitarioMomento": 0,
+          "subtotal": 37.9,
+          "precoTotal": 37.9,
+          "adicionais": [
+            {
+              "id": "adic-bacon-extra",
+              "nome": "Bacon extra",
+              "preco": 3,
+              "precoUnitario": 3,
+              "quantidade": 1,
+              "subtotal": 3
+            }
+          ]
+        }
+      ],
+      "subtotal": 37.9,
+      "valorBruto": 37.9,
+      "desconto": 0,
+      "valorFinal": 43.9,
+      "formaPagamento": "PIX",
+      "taxaPagamentoPercent": 0,
+      "valorTaxa": 0,
+      "valorLiquidoRecebido": 43.9,
+      "cmvTotalMomento": 0,
+      "reservaOperacionalMomento": 0,
+      "valorReposicaoEstoqueMomento": 0,
+      "lucroEstimadoMomento": 0,
+      "tipoAtendimento": "ENTREGA",
+      "clienteNome": "Carlos Silva Teste",
+      "clienteTelefone": "11988887777",
+      "enderecoEntrega": {
+        "rua": "Av. Paulista",
+        "numero": "1000",
+        "bairro": "Bela Vista",
+        "cidade": "São Paulo"
+      },
+      "taxaEntrega": 6,
+      "precisaTroco": false,
+      "tempoPreparoEstimadoMinutos": 40,
+      "whatsappEnviado": false,
+      "origemPedido": "CARDAPIO_DIGITAL",
+      "tokenPublico": "6d25fdee464cd80a7ead1a1db310a7ad"
+    },
+    {
+      "id": "ped-1792767960506-104",
+      "numeroPedido": 104,
+      "numero": 104,
+      "dataHora": "2026-10-23T15:06:00.506Z",
+      "status": "CONFIRMADO",
+      "statusPagamento": "PAGAMENTO_NA_ENTREGA",
+      "itens": [
+        {
+          "produtoId": "prod-x-burguer",
+          "nome": "X-Burguer",
+          "nomeProduto": "X-Burguer",
+          "quantidade": 1,
+          "precoBaseLanche": 22,
+          "precoUnitario": 28,
+          "cmvUnitarioMomento": 0,
+          "subtotal": 28,
+          "precoTotal": 28,
+          "adicionais": [
+            {
+              "id": "adic-bacon-extra",
+              "nome": "Bacon extra",
+              "preco": 3,
+              "precoUnitario": 3,
+              "quantidade": 2,
+              "subtotal": 6
+            }
+          ]
+        }
+      ],
+      "subtotal": 28,
+      "valorBruto": 28,
+      "desconto": 0,
+      "valorFinal": 28,
+      "formaPagamento": "DINHEIRO",
+      "taxaPagamentoPercent": 0,
+      "valorTaxa": 0,
+      "valorLiquidoRecebido": 28,
+      "cmvTotalMomento": 0,
+      "reservaOperacionalMomento": 0,
+      "valorReposicaoEstoqueMomento": 0,
+      "lucroEstimadoMomento": 0,
+      "tipoAtendimento": "RETIRADA",
+      "clienteNome": "João da Silva",
+      "clienteTelefone": "11987654321",
+      "taxaEntrega": 0,
+      "precisaTroco": false,
+      "tempoPreparoEstimadoMinutos": 40,
+      "whatsappEnviado": false,
+      "origemPedido": "CARDAPIO_DIGITAL",
+      "tokenPublico": "da1984f75284bcd54905bb052ad3b4d5"
+    },
+    {
+      "id": "ped-1792727316486-103",
+      "numeroPedido": 103,
+      "numero": 103,
+      "dataHora": "2026-10-23T03:48:36.486Z",
+      "status": "CONFIRMADO",
+      "statusPagamento": "PAGAMENTO_NA_ENTREGA",
+      "itens": [
+        {
+          "produtoId": "prod-x-salada",
+          "nome": "X-Salada",
+          "nomeProduto": "X-Salada",
+          "quantidade": 1,
+          "precoUnitario": 24.5,
+          "cmvUnitarioMomento": 0,
+          "subtotal": 24.5,
+          "precoTotal": 24.5,
+          "adicionais": []
+        }
+      ],
+      "subtotal": 24.5,
+      "valorBruto": 24.5,
+      "desconto": 0,
+      "valorFinal": 24.5,
+      "formaPagamento": "DINHEIRO",
+      "taxaPagamentoPercent": 0,
+      "valorTaxa": 0,
+      "valorLiquidoRecebido": 24.5,
+      "cmvTotalMomento": 0,
+      "reservaOperacionalMomento": 0,
+      "valorReposicaoEstoqueMomento": 0,
+      "lucroEstimadoMomento": 0,
+      "tipoAtendimento": "RETIRADA",
+      "clienteNome": "Ana Paula",
+      "clienteTelefone": "5511988887777",
+      "taxaEntrega": 0,
+      "trocoPara": 50,
+      "precisaTroco": true,
+      "tempoPreparoEstimadoMinutos": 40,
+      "whatsappEnviado": false,
+      "origemPedido": "CARDAPIO_DIGITAL",
+      "tokenPublico": "a8ea769ba6fca3558010b0cb18eaa2b7"
+    },
+    {
+      "id": "ped-1792727223639-102",
+      "numeroPedido": 102,
+      "numero": 102,
+      "dataHora": "2026-10-23T03:47:03.639Z",
+      "status": "CONCLUIDO",
+      "statusPagamento": "PAGO",
+      "itens": [
+        {
+          "produtoId": "prod-dburguer",
+          "nome": "D’burguer",
+          "nomeProduto": "D’burguer",
+          "quantidade": 1,
+          "precoUnitario": 34.9,
+          "cmvUnitarioMomento": 0,
+          "subtotal": 34.9,
+          "precoTotal": 34.9,
+          "adicionais": [],
+          "observacaoItem": "sem cebola",
+          "observacoes": "sem cebola"
+        }
+      ],
+      "subtotal": 34.9,
+      "valorBruto": 34.9,
+      "desconto": 0,
+      "valorFinal": 40.9,
+      "formaPagamento": "PIX",
+      "taxaPagamentoPercent": 0,
+      "valorTaxa": 0,
+      "valorLiquidoRecebido": 40.9,
+      "cmvTotalMomento": 0,
+      "reservaOperacionalMomento": 0,
+      "valorReposicaoEstoqueMomento": 0,
+      "lucroEstimadoMomento": 0,
+      "tipoAtendimento": "ENTREGA",
+      "clienteNome": "Carlos Eduardo",
+      "clienteTelefone": "5511999998888",
+      "enderecoEntrega": {
+        "rua": "Av. Paulista",
+        "numero": "1578",
+        "bairro": "Bela Vista",
+        "cidade": "São Paulo",
+        "referencia": "Masp"
+      },
+      "taxaEntrega": 6,
+      "precisaTroco": false,
+      "tempoPreparoEstimadoMinutos": 40,
+      "whatsappEnviado": false,
+      "origemPedido": "CARDAPIO_DIGITAL",
+      "tokenPublico": "f46438c55da363e149e849b8f66c3f6f",
+      "pixChargeId": "sim-pix-1792727299544-217",
+      "pixQrCode": "https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=00020126580014BR.GOV.BCB.PIX01141234567800019052040000530398654040.905802BR5915DBURGER%20GESTAO6009SAO%20PAULO62170513PED1026304ABCD",
+      "pixCopiaECola": "00020126580014BR.GOV.BCB.PIX01141234567800019052040000530398654040.905802BR5915DBURGER GESTAO6009SAO PAULO62170513PED1026304ABCD",
+      "pixExpiracao": "2026-10-23T04:08:19.544Z",
+      "pixPagoEm": "2026-10-23T03:48:26.458Z"
+    },
+    {
+      "id": "ped-1792727185420-101",
+      "numeroPedido": 101,
+      "dataHora": "2026-10-23T03:46:25.420Z",
+      "status": "CONCLUIDO",
+      "statusPagamento": "PAGAMENTO_NA_ENTREGA",
+      "itens": [
+        {
+          "produtoId": "prod-x-burguer",
+          "nome": "X-Burguer",
+          "quantidade": 2,
+          "precoUnitario": 27,
+          "cmvUnitarioMomento": 0,
+          "subtotal": 54,
+          "adicionais": [
+            {
+              "id": "adic-1",
+              "nome": "Bacon Extra",
+              "preco": 5
+            }
+          ]
+        }
+      ],
+      "subtotal": 54,
+      "desconto": 0,
+      "valorFinal": 60,
+      "formaPagamento": "PIX",
+      "taxaPagamentoPercent": 0,
+      "valorTaxa": 0,
+      "valorLiquidoRecebido": 60,
+      "cmvTotalMomento": 0,
+      "reservaOperacionalMomento": 0,
+      "valorReposicaoEstoqueMomento": 0,
+      "lucroEstimadoMomento": 0,
+      "tipoAtendimento": "ENTREGA",
+      "clienteNome": "Maria Silva",
+      "clienteTelefone": "5511999998888",
+      "enderecoEntrega": {
+        "rua": "Rua das Flores",
+        "numero": "123",
+        "bairro": "Centro",
+        "cidade": "São Paulo",
+        "referencia": "Apto 101"
+      },
+      "taxaEntrega": 6,
+      "precisaTroco": false,
+      "tempoPreparoEstimadoMinutos": 40,
+      "whatsappEnviado": false,
+      "origemPedido": "CARDAPIO_DIGITAL",
+      "tokenPublico": "69c978561cb4c0dd0aaca7fb09adf547"
+    }
+  ],
+  "proximoNumeroPedido": 109,
+  "adminPasswordHash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+  "adminSessions": [
+    "98196fe9ef08f236862228127f5babde883f4e83684dada6ede43c6b9d833cd5",
+    "64eeb07321162e1c337c6cf63d4462685f35490e2275f3532927e4e396e4d5fc",
+    "534732147a241add599bca4967abdd8fe5a7d085d1c954ba28a43baca7908d5f",
+    "719f17686b2ed795c3f8ef527bda1c50a9de3fb5961ffcd37944285d9ca66693",
+    "d1818d0814a745c00fdac1949ff0c274dc72c50eb09911f8669df426af174cc0"
+  ]
+}

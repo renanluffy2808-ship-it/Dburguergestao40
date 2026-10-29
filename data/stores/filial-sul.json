@@ -1,0 +1,315 @@
+{
+  "config": {
+    "nomeHamburgueria": "D’ Burger Filial Sul",
+    "taxaMaquinetaPadrao": 0.7,
+    "taxaPix": 0,
+    "taxaDebito": 1.2,
+    "taxaCredito": 2.8,
+    "reservaOperacionalPercent": 12.1,
+    "metaMargemContribuicao": 35,
+    "previsaoVendasMensaisLanches": 600,
+    "custosFixos": [
+      {
+        "id": "cf-gas",
+        "nome": "Gás Industrial",
+        "valorMensal": 280,
+        "categoria": "gas"
+      },
+      {
+        "id": "cf-energia",
+        "nome": "Energia Elétrica",
+        "valorMensal": 450,
+        "categoria": "energia"
+      },
+      {
+        "id": "cf-agua",
+        "nome": "Água e Saneamento",
+        "valorMensal": 110,
+        "categoria": "agua"
+      },
+      {
+        "id": "cf-internet",
+        "nome": "Internet e Sistema",
+        "valorMensal": 120,
+        "categoria": "internet"
+      },
+      {
+        "id": "cf-manutencao",
+        "nome": "Manutenção de Equipamentos / Chapa",
+        "valorMensal": 150,
+        "categoria": "manutencao"
+      }
+    ],
+    "politicaDestinacao": {
+      "priorizarReposicaoEstoque": true,
+      "travarRetiradaSemReserva": true
+    },
+    "pedidosPagamentos": {
+      "whatsappLoja": "",
+      "chavePix": "",
+      "tipoChavePix": "aleatoria",
+      "titularPix": "D' Burger",
+      "instituicaoPix": "",
+      "provedorPix": "simulado",
+      "modoTestePix": true,
+      "mercadoPagoAccessToken": "",
+      "mercadoPagoPublicKey": "",
+      "tempoPreparoMinutos": 40,
+      "aceitaPix": true,
+      "aceitaCartao": true,
+      "aceitaDinheiro": true,
+      "permiteEntrega": true,
+      "permiteRetirada": true,
+      "taxaEntrega": 6,
+      "instrucoesEntrega": "Entregamos em embalagem térmica lacrada. Acompanhe a chegada pelo WhatsApp.",
+      "instrucoesRetirada": "Retire diretamente no balcão da loja informando o número do seu pedido."
+    },
+    "cardapioTheme": {
+      "nomeLoja": "D’ Burger",
+      "subtituloLoja": "Hambúrgueres Artesanais & Smash",
+      "mostrarSubtitulo": true,
+      "fraseApresentacao": "Faça seu pedido online sem complicações",
+      "mostrarFraseApresentacao": true,
+      "descricaoLoja": "Escolha seus itens favoritos, personalize os adicionais e envie direto para o nosso WhatsApp!",
+      "mostrarDescricaoLoja": true,
+      "mensagemBoasVindas": "Aberto para entrega e retirada",
+      "mostrarMensagemBoasVindas": true,
+      "tituloSecaoProdutos": "Nosso Cardápio",
+      "textoBotaoCarrinho": "Ver Meu Carrinho",
+      "textoBotaoAdicionar": "Adicionar",
+      "textoPersonalizarAdicionais": "Personalize seu pedido (Adicionais)",
+      "badgeStatusAberto": "Aberto agora",
+      "mostrarBadgeStatus": true,
+      "posicaoNomeLoja": "topo",
+      "posicaoLogo": "ao_lado_nome",
+      "posicaoSubtitulo": "abaixo_nome",
+      "posicaoImagemCapa": "topo",
+      "alinhamentoCabecalho": "esquerda",
+      "alinhamentoApresentacao": "esquerda",
+      "ordemSecoes": [
+        "capa",
+        "cabecalho",
+        "apresentacao",
+        "filtros",
+        "produtos"
+      ],
+      "fundoTipo": "solido",
+      "corFundo": "#09090b",
+      "corFundoSecao": "#18181b",
+      "corBordaCartao": "#27272a",
+      "imagemFundoUrl": "",
+      "imagemFundoOpacidade": 15,
+      "logotipoUrl": "",
+      "imagemCapaUrl": "",
+      "imagemCapaAltura": "medio",
+      "imagemCapaEnquadramento": "cover",
+      "sobreposicaoCapaOpacidade": 40,
+      "corTextoPrincipal": "#ffffff",
+      "corTextoSecundario": "#a1a1aa",
+      "corDestaque": "#f59e0b",
+      "corPreco": "#f59e0b",
+      "corBotao": "#f59e0b",
+      "corTextoBotao": "#09090b",
+      "corBadgeCategoria": "#f59e0b",
+      "fonteFamilia": "sans",
+      "tamanhoFonteBase": "normal",
+      "arredondamentoCartoes": "medio",
+      "arredondamentoBotoes": "medio",
+      "sombraCartoes": "suave",
+      "layoutProdutos": "grade",
+      "mostrarFotosProdutos": true,
+      "mostrarTempoPreparo": true,
+      "mostrarTaxaEntregaHeader": true
+    },
+    "estabelecimentoId": "filial-sul",
+    "slugLoja": "filial-sul"
+  },
+  "produtos": [
+    {
+      "id": "prod-sul-1",
+      "nome": "Burger Sul Campeiro",
+      "categoria": "Especiais do Sul",
+      "descricao": "Blend 200g, queijo provolone e chimichurri fresco.",
+      "precoVenda": 42,
+      "ativo": true
+    }
+  ],
+  "categorias": [
+    {
+      "id": "cat-artesanal",
+      "nome": "Artesanal",
+      "descricao": "Burgers com blends artesanais especiais de 150g no pão brioche",
+      "ordem": 1,
+      "ativa": true
+    },
+    {
+      "id": "cat-smash",
+      "nome": "Smash",
+      "descricao": "Burgers prensados na chapa ultra quente com crosta crocante",
+      "ordem": 2,
+      "ativa": true
+    },
+    {
+      "id": "cat-simples",
+      "nome": "Simples",
+      "descricao": "Clássicos tradicionais da hamburgueria",
+      "ordem": 3,
+      "ativa": true
+    },
+    {
+      "id": "cat-bebidas",
+      "nome": "Bebidas",
+      "descricao": "Refrigerantes, sucos naturais e águas",
+      "ordem": 4,
+      "ativa": true
+    },
+    {
+      "id": "cat-promocoes",
+      "nome": "Promoções",
+      "descricao": "Combos e ofertas especiais da semana",
+      "ordem": 5,
+      "ativa": true
+    },
+    {
+      "id": "cat-sobremesas",
+      "nome": "Acompanhamentos",
+      "descricao": "Batatas fritas e porções",
+      "ordem": 6,
+      "ativa": true
+    }
+  ],
+  "adicionais": [
+    {
+      "id": "adic-bacon-extra",
+      "nome": "Bacon extra",
+      "preco": 3,
+      "descricao": "Tiras generosas de bacon artesanal crocante defumado",
+      "ativo": true,
+      "ordem": 1,
+      "maximoPorLanche": 4,
+      "minimoPorLanche": 0,
+      "obrigatorio": false,
+      "categoriasPermitidas": [
+        "Artesanal",
+        "Smash",
+        "Simples"
+      ]
+    },
+    {
+      "id": "adic-cheddar-extra",
+      "nome": "Cheddar extra",
+      "preco": 2.5,
+      "descricao": "Cheddar cremoso fatiado derretido na chapa",
+      "ativo": true,
+      "ordem": 2,
+      "maximoPorLanche": 3,
+      "minimoPorLanche": 0,
+      "obrigatorio": false,
+      "categoriasPermitidas": [
+        "Artesanal",
+        "Smash",
+        "Simples"
+      ]
+    },
+    {
+      "id": "adic-mucarela-extra",
+      "nome": "Muçarela extra",
+      "preco": 2.5,
+      "descricao": "Queijo muçarela derretido com fios elásticos",
+      "ativo": true,
+      "ordem": 3,
+      "maximoPorLanche": 3,
+      "minimoPorLanche": 0,
+      "obrigatorio": false,
+      "categoriasPermitidas": [
+        "Artesanal",
+        "Smash",
+        "Simples"
+      ]
+    },
+    {
+      "id": "adic-carne-extra",
+      "nome": "Carne extra",
+      "preco": 5,
+      "descricao": "Hambúrguer artesanal extra 150g grelhado no ponto",
+      "ativo": true,
+      "ordem": 4,
+      "maximoPorLanche": 2,
+      "minimoPorLanche": 0,
+      "obrigatorio": false,
+      "categoriasPermitidas": [
+        "Artesanal",
+        "Simples"
+      ]
+    },
+    {
+      "id": "adic-ovo-extra",
+      "nome": "Ovo extra",
+      "preco": 2,
+      "descricao": "Ovo frito na chapa com gema macia",
+      "ativo": true,
+      "ordem": 5,
+      "maximoPorLanche": 2,
+      "minimoPorLanche": 0,
+      "obrigatorio": false,
+      "categoriasPermitidas": [
+        "Artesanal",
+        "Smash",
+        "Simples"
+      ]
+    },
+    {
+      "id": "adic-cebola-caramelizada",
+      "nome": "Cebola caramelizada",
+      "preco": 2,
+      "descricao": "Cebola fresca dourada e caramelizada na manteiga",
+      "ativo": true,
+      "ordem": 6,
+      "maximoPorLanche": 2,
+      "minimoPorLanche": 0,
+      "obrigatorio": false,
+      "categoriasPermitidas": [
+        "Artesanal",
+        "Smash",
+        "Simples"
+      ]
+    },
+    {
+      "id": "adic-picles-artesanal",
+      "nome": "Picles artesanal",
+      "preco": 2,
+      "descricao": "Fatias finas de picles crocante agridoce da casa",
+      "ativo": true,
+      "ordem": 7,
+      "maximoPorLanche": 2,
+      "minimoPorLanche": 0,
+      "obrigatorio": false,
+      "categoriasPermitidas": [
+        "Artesanal",
+        "Smash",
+        "Simples"
+      ]
+    },
+    {
+      "id": "adic-maionese-casa",
+      "nome": "Maionese da casa (pote 50ml)",
+      "preco": 3,
+      "descricao": "Nossa famosa maionese verde artesanal com ervas frescas",
+      "ativo": true,
+      "ordem": 8,
+      "maximoPorLanche": 4,
+      "minimoPorLanche": 0,
+      "obrigatorio": false,
+      "categoriasPermitidas": [
+        "Artesanal",
+        "Smash",
+        "Simples",
+        "Acompanhamentos"
+      ]
+    }
+  ],
+  "pedidos": [],
+  "proximoNumeroPedido": 101,
+  "adminPasswordHash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+  "adminSessions": []
+}

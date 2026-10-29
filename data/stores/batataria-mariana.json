@@ -1,0 +1,1151 @@
+{
+  "config": {
+    "nomeHamburgueria": "Batata Dourada da Mari",
+    "taxaMaquinetaPadrao": 0.7,
+    "taxaPix": 0,
+    "taxaDebito": 1.2,
+    "taxaCredito": 2.8,
+    "reservaOperacionalPercent": 12.1,
+    "metaMargemContribuicao": 35,
+    "previsaoVendasMensaisLanches": 600,
+    "custosFixos": [
+      {
+        "id": "cf-gas",
+        "nome": "Gás Industrial",
+        "valorMensal": 280,
+        "categoria": "gas"
+      },
+      {
+        "id": "cf-energia",
+        "nome": "Energia Elétrica",
+        "valorMensal": 450,
+        "categoria": "energia"
+      },
+      {
+        "id": "cf-agua",
+        "nome": "Água e Saneamento",
+        "valorMensal": 110,
+        "categoria": "agua"
+      },
+      {
+        "id": "cf-internet",
+        "nome": "Internet e Sistema",
+        "valorMensal": 120,
+        "categoria": "internet"
+      },
+      {
+        "id": "cf-manutencao",
+        "nome": "Manutenção de Equipamentos / Chapa",
+        "valorMensal": 150,
+        "categoria": "manutencao"
+      }
+    ],
+    "politicaDestinacao": {
+      "priorizarReposicaoEstoque": true,
+      "travarRetiradaSemReserva": true
+    },
+    "pedidosPagamentos": {
+      "whatsappLoja": "",
+      "chavePix": "",
+      "tipoChavePix": "aleatoria",
+      "titularPix": "D' Burger",
+      "instituicaoPix": "",
+      "provedorPix": "simulado",
+      "modoTestePix": true,
+      "mercadoPagoAccessToken": "",
+      "mercadoPagoPublicKey": "",
+      "tempoPreparoMinutos": 40,
+      "aceitaPix": true,
+      "aceitaCartao": true,
+      "aceitaDinheiro": true,
+      "permiteEntrega": true,
+      "permiteRetirada": true,
+      "taxaEntrega": 6,
+      "instrucoesEntrega": "Entregamos em embalagem térmica lacrada. Acompanhe a chegada pelo WhatsApp.",
+      "instrucoesRetirada": "Retire diretamente no balcão da loja informando o número do seu pedido."
+    },
+    "cardapioTheme": {
+      "nomeLoja": "Batata Dourada da Mari",
+      "subtituloLoja": "Batatas Recheadas e Crocantes",
+      "mostrarSubtitulo": true,
+      "fraseApresentacao": "Faça seu pedido online sem complicações",
+      "mostrarFraseApresentacao": true,
+      "descricaoLoja": "Escolha seus itens favoritos, personalize os adicionais e envie direto para o nosso WhatsApp!",
+      "mostrarDescricaoLoja": true,
+      "mensagemBoasVindas": "Aberto para entrega e retirada",
+      "mostrarMensagemBoasVindas": true,
+      "tituloSecaoProdutos": "Nosso Cardápio",
+      "textoBotaoCarrinho": "Ver Meu Carrinho",
+      "textoBotaoAdicionar": "Adicionar",
+      "textoPersonalizarAdicionais": "Personalize seu pedido (Adicionais)",
+      "badgeStatusAberto": "Aberto agora",
+      "mostrarBadgeStatus": true,
+      "posicaoNomeLoja": "topo",
+      "posicaoLogo": "ao_lado_nome",
+      "posicaoSubtitulo": "abaixo_nome",
+      "posicaoImagemCapa": "topo",
+      "alinhamentoCabecalho": "esquerda",
+      "alinhamentoApresentacao": "esquerda",
+      "ordemSecoes": [
+        "capa",
+        "cabecalho",
+        "apresentacao",
+        "filtros",
+        "produtos"
+      ],
+      "fundoTipo": "solido",
+      "corFundo": "#ffffff",
+      "corFundoSecao": "#18181b",
+      "corBordaCartao": "#27272a",
+      "imagemFundoUrl": "",
+      "imagemFundoOpacidade": 15,
+      "logotipoUrl": "",
+      "imagemCapaUrl": "",
+      "imagemCapaAltura": "medio",
+      "imagemCapaEnquadramento": "cover",
+      "sobreposicaoCapaOpacidade": 40,
+      "corTextoPrincipal": "#ffffff",
+      "corTextoSecundario": "#a1a1aa",
+      "corDestaque": "#f59e0b",
+      "corPreco": "#f59e0b",
+      "corBotao": "#f59e0b",
+      "corTextoBotao": "#09090b",
+      "corBadgeCategoria": "#f59e0b",
+      "fonteFamilia": "sans",
+      "tamanhoFonteBase": "normal",
+      "arredondamentoCartoes": "medio",
+      "arredondamentoBotoes": "medio",
+      "sombraCartoes": "suave",
+      "layoutProdutos": "grade",
+      "mostrarFotosProdutos": true,
+      "mostrarTempoPreparo": true,
+      "mostrarTaxaEntregaHeader": true
+    },
+    "estabelecimentoId": "batataria-mariana",
+    "slugLoja": "batataria-mariana"
+  },
+  "produtos": [
+    {
+      "id": "prod-x-burguer",
+      "nome": "X-Burguer",
+      "categoria": "Simples",
+      "descricao": "Pão tradicional, blend bovino 150g suculento e queijo prato derretido.",
+      "precoVenda": 22,
+      "custoEmbalagemManual": 1.15,
+      "tempoPreparoMinutos": 10,
+      "ativo": true,
+      "ingredientes": [
+        {
+          "insumoId": "ins-pao-tradicional",
+          "quantidadeConsumo": 1
+        },
+        {
+          "insumoId": "ins-blend-150",
+          "quantidadeConsumo": 150
+        },
+        {
+          "insumoId": "ins-queijo-prato",
+          "quantidadeConsumo": 40
+        }
+      ],
+      "historicoPrecos": [
+        {
+          "data": "2026-10-01",
+          "precoAnterior": 22,
+          "novoPreco": 22,
+          "motivo": "Preço Inicial"
+        }
+      ]
+    },
+    {
+      "id": "prod-x-salada",
+      "nome": "X-Salada",
+      "categoria": "Simples",
+      "descricao": "Pão tradicional, blend 150g, queijo prato, alface americana fresca, rodelas de tomate e maionese artesanal.",
+      "precoVenda": 24.5,
+      "custoEmbalagemManual": 1.15,
+      "tempoPreparoMinutos": 10,
+      "ativo": true,
+      "ingredientes": [
+        {
+          "insumoId": "ins-pao-tradicional",
+          "quantidadeConsumo": 1
+        },
+        {
+          "insumoId": "ins-blend-150",
+          "quantidadeConsumo": 150
+        },
+        {
+          "insumoId": "ins-queijo-prato",
+          "quantidadeConsumo": 40
+        },
+        {
+          "insumoId": "ins-alface",
+          "quantidadeConsumo": 25
+        },
+        {
+          "insumoId": "ins-tomate",
+          "quantidadeConsumo": 40
+        },
+        {
+          "insumoId": "ins-maionese-casa",
+          "quantidadeConsumo": 20
+        }
+      ],
+      "historicoPrecos": [
+        {
+          "data": "2026-10-01",
+          "precoAnterior": 24.5,
+          "novoPreco": 24.5,
+          "motivo": "Preço Inicial"
+        }
+      ]
+    },
+    {
+      "id": "prod-x-cheddar",
+      "nome": "X-Cheddar",
+      "categoria": "Simples",
+      "descricao": "Pão tradicional, blend 150g e fatias generosas de cheddar cremoso derretido.",
+      "precoVenda": 24,
+      "custoEmbalagemManual": 1.15,
+      "tempoPreparoMinutos": 10,
+      "ativo": true,
+      "ingredientes": [
+        {
+          "insumoId": "ins-pao-tradicional",
+          "quantidadeConsumo": 1
+        },
+        {
+          "insumoId": "ins-blend-150",
+          "quantidadeConsumo": 150
+        },
+        {
+          "insumoId": "ins-queijo-cheddar",
+          "quantidadeConsumo": 50
+        }
+      ],
+      "historicoPrecos": [
+        {
+          "data": "2026-10-01",
+          "precoAnterior": 24,
+          "novoPreco": 24,
+          "motivo": "Preço Inicial"
+        }
+      ]
+    },
+    {
+      "id": "prod-x-bacon",
+      "nome": "X-Bacon",
+      "categoria": "Simples",
+      "descricao": "Pão tradicional, blend 150g, queijo prato e tiras crocantes de bacon especial.",
+      "precoVenda": 27,
+      "custoEmbalagemManual": 1.15,
+      "tempoPreparoMinutos": 12,
+      "ativo": true,
+      "ingredientes": [
+        {
+          "insumoId": "ins-pao-tradicional",
+          "quantidadeConsumo": 1
+        },
+        {
+          "insumoId": "ins-blend-150",
+          "quantidadeConsumo": 150
+        },
+        {
+          "insumoId": "ins-queijo-prato",
+          "quantidadeConsumo": 40
+        },
+        {
+          "insumoId": "ins-bacon",
+          "quantidadeConsumo": 40
+        }
+      ],
+      "historicoPrecos": [
+        {
+          "data": "2026-10-01",
+          "precoAnterior": 27,
+          "novoPreco": 27,
+          "motivo": "Preço Inicial"
+        }
+      ]
+    },
+    {
+      "id": "prod-x-egg-bacon",
+      "nome": "X-Egg Bacon",
+      "categoria": "Simples",
+      "descricao": "Pão tradicional, blend 150g, queijo prato, ovo na chapa com gema macia e bacon crocante.",
+      "precoVenda": 29,
+      "custoEmbalagemManual": 1.15,
+      "tempoPreparoMinutos": 12,
+      "ativo": true,
+      "ingredientes": [
+        {
+          "insumoId": "ins-pao-tradicional",
+          "quantidadeConsumo": 1
+        },
+        {
+          "insumoId": "ins-blend-150",
+          "quantidadeConsumo": 150
+        },
+        {
+          "insumoId": "ins-queijo-prato",
+          "quantidadeConsumo": 40
+        },
+        {
+          "insumoId": "ins-ovo",
+          "quantidadeConsumo": 1
+        },
+        {
+          "insumoId": "ins-bacon",
+          "quantidadeConsumo": 40
+        }
+      ],
+      "historicoPrecos": [
+        {
+          "data": "2026-10-01",
+          "precoAnterior": 29,
+          "novoPreco": 29,
+          "motivo": "Preço Inicial"
+        }
+      ]
+    },
+    {
+      "id": "prod-x-tudo",
+      "nome": "X-Tudo",
+      "categoria": "Simples",
+      "descricao": "O clássico completo: pão tradicional, blend 150g, queijo, ovo, bacon, calabresa, alface, tomate e maionese.",
+      "precoVenda": 32.5,
+      "custoEmbalagemManual": 1.15,
+      "tempoPreparoMinutos": 14,
+      "ativo": true,
+      "ingredientes": [
+        {
+          "insumoId": "ins-pao-tradicional",
+          "quantidadeConsumo": 1
+        },
+        {
+          "insumoId": "ins-blend-150",
+          "quantidadeConsumo": 150
+        },
+        {
+          "insumoId": "ins-queijo-prato",
+          "quantidadeConsumo": 40
+        },
+        {
+          "insumoId": "ins-ovo",
+          "quantidadeConsumo": 1
+        },
+        {
+          "insumoId": "ins-bacon",
+          "quantidadeConsumo": 30
+        },
+        {
+          "insumoId": "ins-calabresa",
+          "quantidadeConsumo": 40
+        },
+        {
+          "insumoId": "ins-alface",
+          "quantidadeConsumo": 20
+        },
+        {
+          "insumoId": "ins-tomate",
+          "quantidadeConsumo": 30
+        },
+        {
+          "insumoId": "ins-maionese-casa",
+          "quantidadeConsumo": 20
+        }
+      ],
+      "historicoPrecos": [
+        {
+          "data": "2026-10-01",
+          "precoAnterior": 32.5,
+          "novoPreco": 32.5,
+          "motivo": "Preço Inicial"
+        }
+      ]
+    },
+    {
+      "id": "prod-x-calabresa",
+      "nome": "X-Calabresa",
+      "categoria": "Simples",
+      "descricao": "Pão tradicional, blend 150g, queijo prato derretido e fatias douradas de calabresa especial.",
+      "precoVenda": 25.5,
+      "custoEmbalagemManual": 1.15,
+      "tempoPreparoMinutos": 11,
+      "ativo": true,
+      "ingredientes": [
+        {
+          "insumoId": "ins-pao-tradicional",
+          "quantidadeConsumo": 1
+        },
+        {
+          "insumoId": "ins-blend-150",
+          "quantidadeConsumo": 150
+        },
+        {
+          "insumoId": "ins-queijo-prato",
+          "quantidadeConsumo": 40
+        },
+        {
+          "insumoId": "ins-calabresa",
+          "quantidadeConsumo": 50
+        }
+      ],
+      "historicoPrecos": [
+        {
+          "data": "2026-10-01",
+          "precoAnterior": 25.5,
+          "novoPreco": 25.5,
+          "motivo": "Preço Inicial"
+        }
+      ]
+    },
+    {
+      "id": "prod-pao-arabe-sol",
+      "nome": "Pão Árabe de Sol",
+      "categoria": "Simples",
+      "descricao": "Pão árabe recheado com carne de sol desfiada na manteiga de garrafa, queijo coalho e maionese da casa.",
+      "precoVenda": 29.9,
+      "custoEmbalagemManual": 1.15,
+      "tempoPreparoMinutos": 12,
+      "ativo": true,
+      "ingredientes": [
+        {
+          "insumoId": "ins-pao-arabe",
+          "quantidadeConsumo": 1
+        },
+        {
+          "insumoId": "ins-carne-sol",
+          "quantidadeConsumo": 130
+        },
+        {
+          "insumoId": "ins-queijo-coalho",
+          "quantidadeConsumo": 50
+        },
+        {
+          "insumoId": "ins-maionese-casa",
+          "quantidadeConsumo": 20
+        }
+      ],
+      "historicoPrecos": [
+        {
+          "data": "2026-10-01",
+          "precoAnterior": 29.9,
+          "novoPreco": 29.9,
+          "motivo": "Preço Inicial"
+        }
+      ]
+    },
+    {
+      "id": "prod-dburguer",
+      "nome": "D’burguer",
+      "categoria": "Artesanal",
+      "descricao": "O carro-chefe: Pão brioche, blend artesanal 150g, queijo cheddar fatiado, bacon crocante, cebola caramelizada e maionese da casa.",
+      "precoVenda": 34.9,
+      "custoEmbalagemManual": 1.15,
+      "tempoPreparoMinutos": 12,
+      "ativo": true,
+      "ingredientes": [
+        {
+          "insumoId": "ins-pao-brioche",
+          "quantidadeConsumo": 1
+        },
+        {
+          "insumoId": "ins-blend-150",
+          "quantidadeConsumo": 150
+        },
+        {
+          "insumoId": "ins-queijo-cheddar",
+          "quantidadeConsumo": 45
+        },
+        {
+          "insumoId": "ins-bacon",
+          "quantidadeConsumo": 40
+        },
+        {
+          "insumoId": "ins-cebola-caramelizada",
+          "quantidadeConsumo": 30
+        },
+        {
+          "insumoId": "ins-maionese-casa",
+          "quantidadeConsumo": 20
+        }
+      ],
+      "historicoPrecos": [
+        {
+          "data": "2026-10-01",
+          "precoAnterior": 34.9,
+          "novoPreco": 34.9,
+          "motivo": "Preço Inicial"
+        }
+      ]
+    },
+    {
+      "id": "prod-bananinha-coalho",
+      "nome": "Bananinha Coalho",
+      "categoria": "Artesanal",
+      "descricao": "Pão brioche, blend 150g, queijo coalho tostado na chapa, bananinha da terra caramelizada e barbecue defumado.",
+      "precoVenda": 36.9,
+      "custoEmbalagemManual": 1.15,
+      "tempoPreparoMinutos": 13,
+      "ativo": true,
+      "ingredientes": [
+        {
+          "insumoId": "ins-pao-brioche",
+          "quantidadeConsumo": 1
+        },
+        {
+          "insumoId": "ins-blend-150",
+          "quantidadeConsumo": 150
+        },
+        {
+          "insumoId": "ins-queijo-coalho",
+          "quantidadeConsumo": 50
+        },
+        {
+          "insumoId": "ins-bananinha",
+          "quantidadeConsumo": 40
+        },
+        {
+          "insumoId": "ins-molho-barbecue",
+          "quantidadeConsumo": 25
+        }
+      ],
+      "historicoPrecos": [
+        {
+          "data": "2026-10-01",
+          "precoAnterior": 36.9,
+          "novoPreco": 36.9,
+          "motivo": "Preço Inicial"
+        }
+      ]
+    },
+    {
+      "id": "prod-artesanal-supreme",
+      "nome": "Artesanal Supreme",
+      "categoria": "Artesanal",
+      "descricao": "Pão brioche, blend 150g, duplo cheddar, fatias fartas de bacon e cebola crispy crocante.",
+      "precoVenda": 37.5,
+      "custoEmbalagemManual": 1.15,
+      "tempoPreparoMinutos": 12,
+      "ativo": true,
+      "ingredientes": [
+        {
+          "insumoId": "ins-pao-brioche",
+          "quantidadeConsumo": 1
+        },
+        {
+          "insumoId": "ins-blend-150",
+          "quantidadeConsumo": 150
+        },
+        {
+          "insumoId": "ins-queijo-cheddar",
+          "quantidadeConsumo": 60
+        },
+        {
+          "insumoId": "ins-bacon",
+          "quantidadeConsumo": 45
+        },
+        {
+          "insumoId": "ins-cebola-crispy",
+          "quantidadeConsumo": 25
+        },
+        {
+          "insumoId": "ins-maionese-casa",
+          "quantidadeConsumo": 20
+        }
+      ],
+      "historicoPrecos": [
+        {
+          "data": "2026-10-01",
+          "precoAnterior": 37.5,
+          "novoPreco": 37.5,
+          "motivo": "Preço Inicial"
+        }
+      ]
+    },
+    {
+      "id": "prod-artesanal-salad",
+      "nome": "Artesanal Salad",
+      "categoria": "Artesanal",
+      "descricao": "Pão brioche, blend 150g, queijo prato especial, alface americana fresca, rodelas selecionadas de tomate e maionese verde.",
+      "precoVenda": 31.9,
+      "custoEmbalagemManual": 1.15,
+      "tempoPreparoMinutos": 10,
+      "ativo": true,
+      "ingredientes": [
+        {
+          "insumoId": "ins-pao-brioche",
+          "quantidadeConsumo": 1
+        },
+        {
+          "insumoId": "ins-blend-150",
+          "quantidadeConsumo": 150
+        },
+        {
+          "insumoId": "ins-queijo-prato",
+          "quantidadeConsumo": 45
+        },
+        {
+          "insumoId": "ins-alface",
+          "quantidadeConsumo": 30
+        },
+        {
+          "insumoId": "ins-tomate",
+          "quantidadeConsumo": 45
+        },
+        {
+          "insumoId": "ins-maionese-casa",
+          "quantidadeConsumo": 25
+        }
+      ],
+      "historicoPrecos": [
+        {
+          "data": "2026-10-01",
+          "precoAnterior": 31.9,
+          "novoPreco": 31.9,
+          "motivo": "Preço Inicial"
+        }
+      ]
+    },
+    {
+      "id": "prod-double-cheese",
+      "nome": "Double Cheese",
+      "categoria": "Artesanal",
+      "descricao": "Para os amantes de queijo: Pão brioche, dois blends artesanais de 150g (300g total) e camadas quádruplas de cheddar.",
+      "precoVenda": 44.9,
+      "custoEmbalagemManual": 1.15,
+      "tempoPreparoMinutos": 15,
+      "ativo": true,
+      "ingredientes": [
+        {
+          "insumoId": "ins-pao-brioche",
+          "quantidadeConsumo": 1
+        },
+        {
+          "insumoId": "ins-blend-150",
+          "quantidadeConsumo": 300
+        },
+        {
+          "insumoId": "ins-queijo-cheddar",
+          "quantidadeConsumo": 90
+        },
+        {
+          "insumoId": "ins-maionese-casa",
+          "quantidadeConsumo": 25
+        }
+      ],
+      "historicoPrecos": [
+        {
+          "data": "2026-10-01",
+          "precoAnterior": 44.9,
+          "novoPreco": 44.9,
+          "motivo": "Preço Inicial"
+        }
+      ]
+    },
+    {
+      "id": "prod-artesanal-defumado",
+      "nome": "Artesanal Defumado",
+      "categoria": "Artesanal",
+      "descricao": "Pão brioche, blend 150g defumado, bacon crocante, barbecue rústico e cebola caramelizada.",
+      "precoVenda": 35.9,
+      "custoEmbalagemManual": 1.15,
+      "tempoPreparoMinutos": 12,
+      "ativo": true,
+      "ingredientes": [
+        {
+          "insumoId": "ins-pao-brioche",
+          "quantidadeConsumo": 1
+        },
+        {
+          "insumoId": "ins-blend-150",
+          "quantidadeConsumo": 150
+        },
+        {
+          "insumoId": "ins-queijo-cheddar",
+          "quantidadeConsumo": 40
+        },
+        {
+          "insumoId": "ins-bacon",
+          "quantidadeConsumo": 35
+        },
+        {
+          "insumoId": "ins-molho-barbecue",
+          "quantidadeConsumo": 30
+        },
+        {
+          "insumoId": "ins-cebola-caramelizada",
+          "quantidadeConsumo": 25
+        }
+      ],
+      "historicoPrecos": [
+        {
+          "data": "2026-10-01",
+          "precoAnterior": 35.9,
+          "novoPreco": 35.9,
+          "motivo": "Preço Inicial"
+        }
+      ]
+    },
+    {
+      "id": "prod-smash-simples",
+      "nome": "Smash Simples",
+      "categoria": "Smash",
+      "descricao": "Pão brioche fofinho, 1 carne smash 80g prensada com crostinha crocante e cheddar fatiado.",
+      "precoVenda": 18.9,
+      "custoEmbalagemManual": 1.15,
+      "tempoPreparoMinutos": 8,
+      "ativo": true,
+      "ingredientes": [
+        {
+          "insumoId": "ins-pao-brioche",
+          "quantidadeConsumo": 1
+        },
+        {
+          "insumoId": "ins-blend-smash-80",
+          "quantidadeConsumo": 80
+        },
+        {
+          "insumoId": "ins-queijo-cheddar",
+          "quantidadeConsumo": 30
+        },
+        {
+          "insumoId": "ins-maionese-casa",
+          "quantidadeConsumo": 15
+        }
+      ],
+      "historicoPrecos": [
+        {
+          "data": "2026-10-01",
+          "precoAnterior": 18.9,
+          "novoPreco": 18.9,
+          "motivo": "Preço Inicial"
+        }
+      ]
+    },
+    {
+      "id": "prod-smash-cheese-duplo",
+      "nome": "Smash Cheese Duplo",
+      "categoria": "Smash",
+      "descricao": "Pão brioche, 2 carnes smash 80g com crosta e camadas duplas de queijo cheddar.",
+      "precoVenda": 26.9,
+      "custoEmbalagemManual": 1.15,
+      "tempoPreparoMinutos": 9,
+      "ativo": true,
+      "ingredientes": [
+        {
+          "insumoId": "ins-pao-brioche",
+          "quantidadeConsumo": 1
+        },
+        {
+          "insumoId": "ins-blend-smash-80",
+          "quantidadeConsumo": 160
+        },
+        {
+          "insumoId": "ins-queijo-cheddar",
+          "quantidadeConsumo": 60
+        },
+        {
+          "insumoId": "ins-maionese-casa",
+          "quantidadeConsumo": 20
+        }
+      ],
+      "historicoPrecos": [
+        {
+          "data": "2026-10-01",
+          "precoAnterior": 26.9,
+          "novoPreco": 26.9,
+          "motivo": "Preço Inicial"
+        }
+      ]
+    },
+    {
+      "id": "prod-smash-salada",
+      "nome": "Smash Salada",
+      "categoria": "Smash",
+      "descricao": "Pão brioche, 2 carnes smash 80g, queijo cheddar, alface, tomate fresco e maionese da casa.",
+      "precoVenda": 28.5,
+      "custoEmbalagemManual": 1.15,
+      "tempoPreparoMinutos": 9,
+      "ativo": true,
+      "ingredientes": [
+        {
+          "insumoId": "ins-pao-brioche",
+          "quantidadeConsumo": 1
+        },
+        {
+          "insumoId": "ins-blend-smash-80",
+          "quantidadeConsumo": 160
+        },
+        {
+          "insumoId": "ins-queijo-cheddar",
+          "quantidadeConsumo": 50
+        },
+        {
+          "insumoId": "ins-alface",
+          "quantidadeConsumo": 25
+        },
+        {
+          "insumoId": "ins-tomate",
+          "quantidadeConsumo": 35
+        },
+        {
+          "insumoId": "ins-maionese-casa",
+          "quantidadeConsumo": 20
+        }
+      ],
+      "historicoPrecos": [
+        {
+          "data": "2026-10-01",
+          "precoAnterior": 28.5,
+          "novoPreco": 28.5,
+          "motivo": "Preço Inicial"
+        }
+      ]
+    },
+    {
+      "id": "prod-smash-bacon",
+      "nome": "Smash Bacon",
+      "categoria": "Smash",
+      "descricao": "Pão brioche, 2 carnes smash 80g com crosta perfeita, cheddar duplo e tiras crocantes de bacon.",
+      "precoVenda": 30.9,
+      "custoEmbalagemManual": 1.15,
+      "tempoPreparoMinutos": 9,
+      "ativo": true,
+      "ingredientes": [
+        {
+          "insumoId": "ins-pao-brioche",
+          "quantidadeConsumo": 1
+        },
+        {
+          "insumoId": "ins-blend-smash-80",
+          "quantidadeConsumo": 160
+        },
+        {
+          "insumoId": "ins-queijo-cheddar",
+          "quantidadeConsumo": 50
+        },
+        {
+          "insumoId": "ins-bacon",
+          "quantidadeConsumo": 35
+        },
+        {
+          "insumoId": "ins-maionese-casa",
+          "quantidadeConsumo": 20
+        }
+      ],
+      "historicoPrecos": [
+        {
+          "data": "2026-10-01",
+          "precoAnterior": 30.9,
+          "novoPreco": 30.9,
+          "motivo": "Preço Inicial"
+        }
+      ]
+    },
+    {
+      "id": "prod-smash-sertanejo",
+      "nome": "Smash Sertanejo",
+      "categoria": "Smash",
+      "descricao": "Pão brioche, 2 carnes smash 80g, queijo coalho chapeado e carne de sol desfiada na manteiga.",
+      "precoVenda": 33.9,
+      "custoEmbalagemManual": 1.15,
+      "tempoPreparoMinutos": 10,
+      "ativo": true,
+      "ingredientes": [
+        {
+          "insumoId": "ins-pao-brioche",
+          "quantidadeConsumo": 1
+        },
+        {
+          "insumoId": "ins-blend-smash-80",
+          "quantidadeConsumo": 160
+        },
+        {
+          "insumoId": "ins-queijo-coalho",
+          "quantidadeConsumo": 45
+        },
+        {
+          "insumoId": "ins-carne-sol",
+          "quantidadeConsumo": 50
+        },
+        {
+          "insumoId": "ins-maionese-casa",
+          "quantidadeConsumo": 20
+        }
+      ],
+      "historicoPrecos": [
+        {
+          "data": "2026-10-01",
+          "precoAnterior": 33.9,
+          "novoPreco": 33.9,
+          "motivo": "Preço Inicial"
+        }
+      ]
+    },
+    {
+      "id": "prod-smash-crispy",
+      "nome": "Smash Crispy",
+      "categoria": "Smash",
+      "descricao": "Pão brioche, 2 carnes smash 80g, queijo cheddar derretido e muita cebola crispy crocante.",
+      "precoVenda": 29.9,
+      "custoEmbalagemManual": 1.15,
+      "tempoPreparoMinutos": 9,
+      "ativo": true,
+      "ingredientes": [
+        {
+          "insumoId": "ins-pao-brioche",
+          "quantidadeConsumo": 1
+        },
+        {
+          "insumoId": "ins-blend-smash-80",
+          "quantidadeConsumo": 160
+        },
+        {
+          "insumoId": "ins-queijo-cheddar",
+          "quantidadeConsumo": 50
+        },
+        {
+          "insumoId": "ins-cebola-crispy",
+          "quantidadeConsumo": 30
+        },
+        {
+          "insumoId": "ins-maionese-casa",
+          "quantidadeConsumo": 20
+        }
+      ],
+      "historicoPrecos": [
+        {
+          "data": "2026-10-01",
+          "precoAnterior": 29.9,
+          "novoPreco": 29.9,
+          "motivo": "Preço Inicial"
+        }
+      ]
+    },
+    {
+      "id": "prod-smash-caramelizado",
+      "nome": "Smash Caramelizado",
+      "categoria": "Smash",
+      "descricao": "Pão brioche, 2 carnes smash 80g, queijo cheddar, fatias de bacon e cebola caramelizada na chapa.",
+      "precoVenda": 31.5,
+      "custoEmbalagemManual": 1.15,
+      "tempoPreparoMinutos": 9,
+      "ativo": true,
+      "ingredientes": [
+        {
+          "insumoId": "ins-pao-brioche",
+          "quantidadeConsumo": 1
+        },
+        {
+          "insumoId": "ins-blend-smash-80",
+          "quantidadeConsumo": 160
+        },
+        {
+          "insumoId": "ins-queijo-cheddar",
+          "quantidadeConsumo": 50
+        },
+        {
+          "insumoId": "ins-bacon",
+          "quantidadeConsumo": 30
+        },
+        {
+          "insumoId": "ins-cebola-caramelizada",
+          "quantidadeConsumo": 30
+        },
+        {
+          "insumoId": "ins-maionese-casa",
+          "quantidadeConsumo": 20
+        }
+      ],
+      "historicoPrecos": [
+        {
+          "data": "2026-10-01",
+          "precoAnterior": 31.5,
+          "novoPreco": 31.5,
+          "motivo": "Preço Inicial"
+        }
+      ]
+    }
+  ],
+  "categorias": [
+    {
+      "id": "cat-artesanal",
+      "nome": "Artesanal",
+      "descricao": "Burgers com blends artesanais especiais de 150g no pão brioche",
+      "ordem": 1,
+      "ativa": true
+    },
+    {
+      "id": "cat-smash",
+      "nome": "Smash",
+      "descricao": "Burgers prensados na chapa ultra quente com crosta crocante",
+      "ordem": 2,
+      "ativa": true
+    },
+    {
+      "id": "cat-simples",
+      "nome": "Simples",
+      "descricao": "Clássicos tradicionais da hamburgueria",
+      "ordem": 3,
+      "ativa": true
+    },
+    {
+      "id": "cat-bebidas",
+      "nome": "Bebidas",
+      "descricao": "Refrigerantes, sucos naturais e águas",
+      "ordem": 4,
+      "ativa": true
+    },
+    {
+      "id": "cat-promocoes",
+      "nome": "Promoções",
+      "descricao": "Combos e ofertas especiais da semana",
+      "ordem": 5,
+      "ativa": true
+    },
+    {
+      "id": "cat-sobremesas",
+      "nome": "Acompanhamentos",
+      "descricao": "Batatas fritas e porções",
+      "ordem": 6,
+      "ativa": true
+    }
+  ],
+  "adicionais": [
+    {
+      "id": "adic-bacon-extra",
+      "nome": "Bacon extra",
+      "preco": 3,
+      "descricao": "Tiras generosas de bacon artesanal crocante defumado",
+      "ativo": true,
+      "ordem": 1,
+      "maximoPorLanche": 4,
+      "minimoPorLanche": 0,
+      "obrigatorio": false,
+      "categoriasPermitidas": [
+        "Artesanal",
+        "Smash",
+        "Simples"
+      ]
+    },
+    {
+      "id": "adic-cheddar-extra",
+      "nome": "Cheddar extra",
+      "preco": 2.5,
+      "descricao": "Cheddar cremoso fatiado derretido na chapa",
+      "ativo": true,
+      "ordem": 2,
+      "maximoPorLanche": 3,
+      "minimoPorLanche": 0,
+      "obrigatorio": false,
+      "categoriasPermitidas": [
+        "Artesanal",
+        "Smash",
+        "Simples"
+      ]
+    },
+    {
+      "id": "adic-mucarela-extra",
+      "nome": "Muçarela extra",
+      "preco": 2.5,
+      "descricao": "Queijo muçarela derretido com fios elásticos",
+      "ativo": true,
+      "ordem": 3,
+      "maximoPorLanche": 3,
+      "minimoPorLanche": 0,
+      "obrigatorio": false,
+      "categoriasPermitidas": [
+        "Artesanal",
+        "Smash",
+        "Simples"
+      ]
+    },
+    {
+      "id": "adic-carne-extra",
+      "nome": "Carne extra",
+      "preco": 5,
+      "descricao": "Hambúrguer artesanal extra 150g grelhado no ponto",
+      "ativo": true,
+      "ordem": 4,
+      "maximoPorLanche": 2,
+      "minimoPorLanche": 0,
+      "obrigatorio": false,
+      "categoriasPermitidas": [
+        "Artesanal",
+        "Simples"
+      ]
+    },
+    {
+      "id": "adic-ovo-extra",
+      "nome": "Ovo extra",
+      "preco": 2,
+      "descricao": "Ovo frito na chapa com gema macia",
+      "ativo": true,
+      "ordem": 5,
+      "maximoPorLanche": 2,
+      "minimoPorLanche": 0,
+      "obrigatorio": false,
+      "categoriasPermitidas": [
+        "Artesanal",
+        "Smash",
+        "Simples"
+      ]
+    },
+    {
+      "id": "adic-cebola-caramelizada",
+      "nome": "Cebola caramelizada",
+      "preco": 2,
+      "descricao": "Cebola fresca dourada e caramelizada na manteiga",
+      "ativo": true,
+      "ordem": 6,
+      "maximoPorLanche": 2,
+      "minimoPorLanche": 0,
+      "obrigatorio": false,
+      "categoriasPermitidas": [
+        "Artesanal",
+        "Smash",
+        "Simples"
+      ]
+    },
+    {
+      "id": "adic-picles-artesanal",
+      "nome": "Picles artesanal",
+      "preco": 2,
+      "descricao": "Fatias finas de picles crocante agridoce da casa",
+      "ativo": true,
+      "ordem": 7,
+      "maximoPorLanche": 2,
+      "minimoPorLanche": 0,
+      "obrigatorio": false,
+      "categoriasPermitidas": [
+        "Artesanal",
+        "Smash",
+        "Simples"
+      ]
+    },
+    {
+      "id": "adic-maionese-casa",
+      "nome": "Maionese da casa (pote 50ml)",
+      "preco": 3,
+      "descricao": "Nossa famosa maionese verde artesanal com ervas frescas",
+      "ativo": true,
+      "ordem": 8,
+      "maximoPorLanche": 4,
+      "minimoPorLanche": 0,
+      "obrigatorio": false,
+      "categoriasPermitidas": [
+        "Artesanal",
+        "Smash",
+        "Simples",
+        "Acompanhamentos"
+      ]
+    }
+  ],
+  "pedidos": [],
+  "proximoNumeroPedido": 101,
+  "adminPasswordHash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+  "adminSessions": []
+}

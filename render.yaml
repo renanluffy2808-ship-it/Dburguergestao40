@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: dburger-gestao
+    env: node
+    plan: free
+    region: ohio
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      # Opcional: Se desejar persistência infinita na nuvem pelo PostgreSQL gratuito do Neon/Render:
+      # - key: DATABASE_URL
+      #   value: postgresql://...

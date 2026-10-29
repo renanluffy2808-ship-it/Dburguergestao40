@@ -1,0 +1,6 @@
+{
+  "name": "D’ Burger Gestão & Cardápio Digital",
+  "description": "Sistema completo de gestão operacional, PDV, estoque e cardápio digital com checkout para WhatsApp, Pix integrado com confirmação real, entrega e retirada.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

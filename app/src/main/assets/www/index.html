@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>D’ Burger Gestão & Cardápio Digital</title>
+    <meta name="description" content="Sistema completo de gestão operacional, PDV, estoque e cardápio digital com checkout para WhatsApp, Pix integrado com confirmação real, entrega e retirada." />
+    <meta property="og:title" content="D’ Burger Gestão & Cardápio Digital" />
+    <meta property="og:description" content="Sistema completo de gestão operacional, PDV, estoque e cardápio digital com checkout para WhatsApp, Pix integrado com confirmação real, entrega e retirada." />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#18181b" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="D’ Burger" />
+    <link rel="icon" type="image/svg+xml" href="./icon.svg" />
+    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <link rel="manifest" href="./manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <script defer src="./assets/app.js"></script>
+    <link rel="stylesheet" href="./assets/app.css">
+  </head>
+  <body class="bg-zinc-950 text-zinc-100 antialiased selection:bg-amber-500 selection:text-black">
+    <div id="root"><div id="app-loading-screen" style="position:fixed;inset:0;background:#09090b;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:system-ui,-apple-system,sans-serif;color:#f4f4f5;z-index:99999;"><div style="width:44px;height:44px;border:3px solid #27272a;border-top-color:#f59e0b;border-radius:50%;animation:dburger-spin 0.8s linear infinite;"></div><p style="margin-top:16px;font-size:14px;font-weight:800;letter-spacing:0.05em;color:#f4f4f5;">D’ BURGER GESTÃO</p><p id="app-loading-status" style="margin-top:6px;font-size:12px;color:#a1a1aa;">Carregando painel e cardápio...</p><div id="app-error-box" style="display:none;margin-top:14px;max-width:320px;padding:12px;background:#271b1b;border:1px solid #7f1d1d;border-radius:8px;font-size:11px;color:#fca5a5;word-break:break-word;text-align:center;"></div><style>@keyframes dburger-spin{to{transform:rotate(360deg)}}</style></div></div><script>window.addEventListener('error',function(e){var b=document.getElementById('app-error-box'),s=document.getElementById('app-loading-status');if(b){b.style.display='block';b.textContent='Erro ao iniciar: '+(e.message||e);}if(s){s.textContent='Falha ao abrir os componentes';}});</script>
+  </body>
+</html>
