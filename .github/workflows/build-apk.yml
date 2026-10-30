@@ -4,14 +4,8 @@ name: Build APK D Burger
 on:
   workflow_dispatch:
   push:
-    paths:
-      - 'app/**'
-      - 'src/**'
-      - 'package.json'
-      - 'build.gradle.kts'
-      - '.github/workflows/build-apk.yml'
-
-permissions:
+    branches:
+      - main
   contents: read
 
 jobs:
