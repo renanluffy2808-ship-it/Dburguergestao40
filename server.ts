@@ -23,6 +23,7 @@ import {
   sanitizarLojaId,
   StoreData,
   DEFAULT_ADMIN_HASH,
+  PEDIDOS_TESTE_FICTICIOS_IDS,
 } from './src/server/storage';
 
 const DATA_DIR = path.resolve(process.cwd(), 'data');
@@ -1551,7 +1552,55 @@ async function startServer() {
   // -------------------------------------------------------------
   app.get('/api/pedidos/admin', requireAdminAuth, (req, res) => {
     const { store } = req as any;
-    return res.json(store.pedidos);
+    const pedidos = (store.pedidos || []).filter((p: any) => !PEDIDOS_TESTE_FICTICIOS_IDS.has(p.id));
+    return res.json(pedidos);
+  });
+
+  app.delete('/api/pedidos/admin/:id', requireAdminAuth, (req, res) => {
+    const { store, lojaId } = req as any;
+    const { id } = req.params;
+    let targetStore = store;
+    let targetLojaId = lojaId;
+    let idx = targetStore?.pedidos?.findIndex((p: any) => p.id === id);
+
+    if (idx === -1 || idx === undefined) {
+      for (const [sId, cStore] of storesCache.entries()) {
+        const foundIdx = cStore.pedidos?.findIndex((p: any) => p.id === id);
+        if (foundIdx !== -1 && foundIdx !== undefined) {
+          idx = foundIdx;
+          targetStore = cStore;
+          targetLojaId = sId;
+          break;
+        }
+      }
+    }
+
+    if (idx === -1 || idx === undefined) {
+      return res.status(404).json({ erro: 'Pedido não encontrado.' });
+    }
+
+    const [removido] = targetStore.pedidos.splice(idx, 1);
+    salvarStore(targetLojaId, targetStore);
+    return res.json({ sucesso: true, removido });
+  });
+
+  app.post('/api/admin/reset-vazio', requireAdminAuth, (req, res) => {
+    const { store, lojaId } = req as any;
+    const { zerarPedidos, zerarProdutos } = req.body || {};
+
+    if (zerarProdutos !== false) {
+      store.produtos = [];
+    }
+    if (zerarPedidos !== false) {
+      store.pedidos = [];
+    }
+    salvarStore(lojaId, store);
+    return res.json({
+      sucesso: true,
+      mensagem: 'Banco do servidor limpo com sucesso!',
+      totalProdutos: (store.produtos || []).length,
+      totalPedidos: (store.pedidos || []).length,
+    });
   });
 
   app.patch('/api/pedidos/admin/:id/status', requireAdminAuth, (req, res) => {
@@ -1667,16 +1716,16 @@ async function startServer() {
     const { store, lojaId } = req as any;
     const { produtos, categorias, adicionais, config, theme } = req.body;
 
-    if (Array.isArray(produtos) && produtos.length > 0) {
+    if (Array.isArray(produtos)) {
       store.produtos = produtos.map((p: any) => ({
         ...p,
         ativo: p.ativo !== false,
       }));
     }
-    if (Array.isArray(categorias) && categorias.length > 0) {
+    if (Array.isArray(categorias)) {
       store.categorias = categorias;
     }
-    if (Array.isArray(adicionais) && adicionais.length > 0) {
+    if (Array.isArray(adicionais)) {
       store.adicionais = adicionais;
     }
     if (config && typeof config === 'object') {

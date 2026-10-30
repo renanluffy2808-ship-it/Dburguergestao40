@@ -135,6 +135,18 @@ const AppContext = createContext<AppContextType | null>(null);
 
 const STORAGE_KEY = 'DBURGER_GESTAO_DATABASE_V1';
 
+// Lista de IDs dos 8 pedidos de teste para remoção permanente no frontend
+export const PEDIDOS_TESTE_FICTICIOS_IDS = new Set([
+  'ped-1792727185420-101',
+  'ped-1792727223639-102',
+  'ped-1792727316486-103',
+  'ped-1792767960506-104',
+  'ped-1792949698460-105',
+  'ped-1792949709922-106',
+  'ped-1792950156237-107',
+  'ped-1792950206672-108',
+]);
+
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Inicialização do estado a partir do LocalStorage ou padrão
   const [config, setConfig] = useState<ConfiguracaoFinanceira>(() => {
@@ -175,10 +187,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const [produtos, setProdutos] = useState<ProdutoCardapio[]>(() => {
     try {
+      const appZerado = localStorage.getItem('DBURGER_APP_ZERADO') === 'true';
       const saved = localStorage.getItem(`${STORAGE_KEY}_PRODUTOS`);
-      return saved ? JSON.parse(saved) : PRODUTOS_PADRAO;
-    } catch {
+      if (saved !== null) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          if (appZerado && parsed.length === 0) return [];
+          return parsed;
+        }
+      }
+      if (appZerado) return [];
       return PRODUTOS_PADRAO;
+    } catch {
+      return [];
     }
   });
 
@@ -203,7 +224,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [pedidos, setPedidos] = useState<PedidoVenda[]>(() => {
     try {
       const saved = localStorage.getItem(`${STORAGE_KEY}_PEDIDOS`);
-      return saved ? JSON.parse(saved) : [];
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          return parsed.filter((p: PedidoVenda) => !PEDIDOS_TESTE_FICTICIOS_IDS.has(p.id));
+        }
+      }
+      return [];
     } catch {
       return [];
     }
@@ -857,22 +884,26 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       });
       if (res.ok) {
         const data = await res.json();
-        const listaRecebida: PedidoVenda[] = Array.isArray(data)
-          ? data
-          : Array.isArray(data?.pedidos)
-          ? data.pedidos
-          : [];
+        const listaRecebida: PedidoVenda[] = (
+          Array.isArray(data)
+            ? data
+            : Array.isArray(data?.pedidos)
+            ? data.pedidos
+            : []
+        ).filter((p: PedidoVenda) => !PEDIDOS_TESTE_FICTICIOS_IDS.has(p.id));
 
-        if (listaRecebida.length > 0) {
-          setPedidos((prev) => {
-            const map = new Map<string, PedidoVenda>();
-            prev.forEach((p) => map.set(p.id, p));
-            listaRecebida.forEach((p: PedidoVenda) => map.set(p.id, p));
-            return Array.from(map.values()).sort(
-              (a, b) => new Date(b.dataHora).getTime() - new Date(a.dataHora).getTime()
-            );
-          });
-        }
+        setPedidos((prev) => {
+          const filteredPrev = prev.filter((p) => !PEDIDOS_TESTE_FICTICIOS_IDS.has(p.id));
+          if (listaRecebida.length === 0) {
+            return filteredPrev;
+          }
+          const map = new Map<string, PedidoVenda>();
+          filteredPrev.forEach((p) => map.set(p.id, p));
+          listaRecebida.forEach((p: PedidoVenda) => map.set(p.id, p));
+          return Array.from(map.values()).sort(
+            (a, b) => new Date(b.dataHora).getTime() - new Date(a.dataHora).getTime()
+          );
+        });
       }
     } catch {
       // Modo offline seguro — ignora falha de rede sem interromper a tela
@@ -987,7 +1018,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Sincronizar produtos com o backend para o cardápio público
   useEffect(() => {
-    if (produtos && produtos.length > 0) {
+    if (Array.isArray(produtos)) {
       fetch(apiUrl('/api/sync/admin-produtos'), {
         method: 'POST',
         headers: {
@@ -1031,6 +1062,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       if (!parsed.config || !parsed.insumos || !parsed.produtos) {
         return { sucesso: false, erro: 'Formato de arquivo de backup inválido.' };
       }
+      try {
+        localStorage.removeItem('DBURGER_APP_ZERADO');
+      } catch {}
       setConfig(parsed.config);
       setInsumos(parsed.insumos);
       setFornecedores(parsed.fornecedores || []);
@@ -1046,6 +1080,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const reiniciarParaDadosPadrao = () => {
+    try {
+      localStorage.removeItem('DBURGER_APP_ZERADO');
+    } catch {}
     setConfig(CONFIG_INICIAL);
     setInsumos(INSUMOS_PADRAO);
     setFornecedores(FORNECEDORES_INICIAIS);
@@ -1057,6 +1094,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const iniciarBancoVazio = () => {
+    try {
+      localStorage.setItem('DBURGER_APP_ZERADO', 'true');
+      localStorage.removeItem('DBURGER_GESTAO_CARDAPIO_OFFLINE');
+      localStorage.removeItem('DBURGER_GESTAO_CATEGORIAS');
+      localStorage.removeItem('DBURGER_GESTAO_ADICIONAIS');
+    } catch {}
     setConfig(CONFIG_INICIAL);
     setInsumos([]);
     setFornecedores([]);
@@ -1065,6 +1108,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setMovimentacoesEstoque([]);
     setPedidos([]);
     setLancamentosCaixa([]);
+
+    // Notifica backend para limpar na nuvem também
+    fetch(apiUrl('/api/admin/reset-vazio'), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAdminAuthHeader(),
+        ...getLojaHeader(),
+      },
+      body: JSON.stringify({ zerarPedidos: true, zerarProdutos: true }),
+    }).catch(() => {});
   };
 
   // Indicadores do Dashboard

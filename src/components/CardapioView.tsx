@@ -107,11 +107,7 @@ export const CardapioView: React.FC = () => {
       if (s) {
         const parsed = JSON.parse(s);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          const nomesExistentes = new Set(parsed.map((c: any) => c.nome.toLowerCase()));
-          const faltantes = CATEGORIAS_PADRAO.filter(
-            (def) => !nomesExistentes.has(def.nome.toLowerCase())
-          );
-          return [...parsed, ...faltantes];
+          return parsed;
         }
       }
     } catch {}
@@ -304,20 +300,33 @@ export const CardapioView: React.FC = () => {
 
       if (resProd.ok) {
         const prodsData = await resProd.json();
-        if (Array.isArray(prodsData) && prodsData.length > 0) {
-          setProdutos(prodsData);
+        if (Array.isArray(prodsData)) {
+          const appZerado = localStorage.getItem('DBURGER_APP_ZERADO') === 'true';
+          if (appZerado && produtosContext.length === 0 && prodsData.length > 0) {
+            fetch(apiUrl('/api/sync/admin-produtos'), {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                ...getAdminAuthHeader(),
+                ...getLojaHeader(),
+              },
+              body: JSON.stringify({ produtos: [] }),
+            }).catch(() => {});
+          } else {
+            setProdutos(prodsData);
+          }
         }
       }
       if (resCat.ok) {
         const catsData = await resCat.json();
-        if (Array.isArray(catsData) && catsData.length > 0) {
+        if (Array.isArray(catsData)) {
           setCategorias(catsData);
           localStorage.setItem('DBURGER_GESTAO_CATEGORIAS', JSON.stringify(catsData));
         }
       }
       if (resAdic.ok) {
         const adicsData = await resAdic.json();
-        if (Array.isArray(adicsData) && adicsData.length > 0) {
+        if (Array.isArray(adicsData)) {
           setAdicionais(adicsData);
           localStorage.setItem('DBURGER_GESTAO_ADICIONAIS', JSON.stringify(adicsData));
         }

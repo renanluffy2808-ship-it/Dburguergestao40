@@ -71,6 +71,18 @@ function hashPassword(pass: string): string {
 
 export const DEFAULT_ADMIN_HASH = hashPassword('admin123');
 
+// Lista oficial dos 8 pedidos de teste/fictícios para exclusão definitiva e prevenção de recriação
+export const PEDIDOS_TESTE_FICTICIOS_IDS = new Set([
+  'ped-1792727185420-101',
+  'ped-1792727223639-102',
+  'ped-1792727316486-103',
+  'ped-1792767960506-104',
+  'ped-1792949698460-105',
+  'ped-1792949709922-106',
+  'ped-1792950156237-107',
+  'ped-1792950206672-108',
+]);
+
 export function sanitizarLojaId(raw?: any): string {
   if (!raw || typeof raw !== 'string') return 'default';
   const limpo = raw.toLowerCase().trim().replace(/[^a-z0-9_-]/g, '');
@@ -486,9 +498,10 @@ class StorageManager {
           }
         }
 
-        // Pedidos existentes
+        // Pedidos existentes (ignora definitivamente os 8 pedidos de teste fictícios)
         if (Array.isArray(store.pedidos)) {
           for (const ped of store.pedidos) {
+            if (PEDIDOS_TESTE_FICTICIOS_IDS.has(ped.id)) continue;
             await client.query(
               `INSERT INTO dburger_pedidos (id, loja_id, numero_pedido, token_publico, status, status_pagamento, dados, criado_em, atualizado_em)
                VALUES ($1, $2, $3, $4, $5, $6, $7, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
@@ -540,7 +553,7 @@ class StorageManager {
       for (const row of resStores.rows) {
         const lojaId = row.id;
 
-        // Produtos da loja
+        // Produtos da loja (respeita lista vazia se o cardápio foi zerado)
         const resProd = await client.query('SELECT dados FROM dburger_produtos WHERE loja_id = $1 ORDER BY ordem ASC', [lojaId]);
         const produtos = resProd.rows.map((r) => r.dados);
 
@@ -552,9 +565,11 @@ class StorageManager {
         const resAdic = await client.query('SELECT dados FROM dburger_adicionais WHERE loja_id = $1 ORDER BY ordem ASC', [lojaId]);
         const adicionais = resAdic.rows.map((r) => r.dados);
 
-        // Pedidos
+        // Pedidos (filtra qualquer pedido fictício remanescente)
         const resPed = await client.query('SELECT dados FROM dburger_pedidos WHERE loja_id = $1 ORDER BY criado_em DESC', [lojaId]);
-        const pedidos = resPed.rows.map((r) => r.dados);
+        const pedidos = resPed.rows
+          .map((r) => r.dados)
+          .filter((p) => p && !PEDIDOS_TESTE_FICTICIOS_IDS.has(p.id));
 
         const storeData: StoreData = {
           config: {
@@ -563,9 +578,9 @@ class StorageManager {
             estabelecimentoId: lojaId,
             cardapioTheme: row.config?.cardapioTheme || TEMA_CARDAPIO_PADRAO,
           },
-          produtos: produtos.length > 0 ? produtos : PRODUTOS_PADRAO,
-          categorias: categorias.length > 0 ? categorias : CATEGORIAS_PADRAO,
-          adicionais: adicionais.length > 0 ? adicionais : ADICIONAIS_PADRAO,
+          produtos: Array.isArray(produtos) ? produtos : [],
+          categorias: Array.isArray(categorias) && categorias.length > 0 ? categorias : CATEGORIAS_PADRAO,
+          adicionais: Array.isArray(adicionais) && adicionais.length > 0 ? adicionais : ADICIONAIS_PADRAO,
           pedidos,
           proximoNumeroPedido: row.proximo_numero_pedido || 101,
           adminPasswordHash: row.admin_password_hash || DEFAULT_ADMIN_HASH,
@@ -606,10 +621,10 @@ class StorageManager {
             estabelecimentoId: safeId,
             cardapioTheme: parsed.config?.cardapioTheme || TEMA_CARDAPIO_PADRAO,
           },
-          produtos: Array.isArray(parsed.produtos) && parsed.produtos.length > 0 ? parsed.produtos : PRODUTOS_PADRAO,
-          categorias: Array.isArray(parsed.categorias) && parsed.categorias.length > 0 ? parsed.categorias : CATEGORIAS_PADRAO,
-          adicionais: Array.isArray(parsed.adicionais) && parsed.adicionais.length > 0 ? parsed.adicionais : ADICIONAIS_PADRAO,
-          pedidos: parsed.pedidos || [],
+          produtos: Array.isArray(parsed.produtos) ? parsed.produtos : PRODUTOS_PADRAO,
+          categorias: Array.isArray(parsed.categorias) ? parsed.categorias : CATEGORIAS_PADRAO,
+          adicionais: Array.isArray(parsed.adicionais) ? parsed.adicionais : ADICIONAIS_PADRAO,
+          pedidos: (Array.isArray(parsed.pedidos) ? parsed.pedidos : []).filter((p: any) => p && !PEDIDOS_TESTE_FICTICIOS_IDS.has(p.id)),
           proximoNumeroPedido: parsed.proximoNumeroPedido || 101,
           adminPasswordHash: parsed.adminPasswordHash || DEFAULT_ADMIN_HASH,
           adminSessions: Array.isArray(parsed.adminSessions) ? parsed.adminSessions : [],
@@ -696,6 +711,12 @@ class StorageManager {
       );
 
       // Produtos
+      if (store.produtos.length === 0) {
+        await client.query('DELETE FROM dburger_produtos WHERE loja_id = $1', [lojaId]);
+      } else {
+        const idsProdutos = store.produtos.map((p) => p.id);
+        await client.query('DELETE FROM dburger_produtos WHERE loja_id = $1 AND NOT (id = ANY($2))', [lojaId, idsProdutos]);
+      }
       for (const prod of store.produtos) {
         await client.query(
           `INSERT INTO dburger_produtos (id, loja_id, dados, ativo, ordem, updated_at)
@@ -709,8 +730,15 @@ class StorageManager {
         );
       }
 
-      // Pedidos
-      for (const ped of store.pedidos) {
+      // Pedidos (remove pedidos apagados/zerados e ignora pedidos fictícios de teste)
+      const pedidosReais = (store.pedidos || []).filter((p) => p && !PEDIDOS_TESTE_FICTICIOS_IDS.has(p.id));
+      if (pedidosReais.length === 0) {
+        await client.query('DELETE FROM dburger_pedidos WHERE loja_id = $1', [lojaId]);
+      } else {
+        const idsPedidos = pedidosReais.map((p) => p.id);
+        await client.query('DELETE FROM dburger_pedidos WHERE loja_id = $1 AND NOT (id = ANY($2))', [lojaId, idsPedidos]);
+      }
+      for (const ped of pedidosReais) {
         await client.query(
           `INSERT INTO dburger_pedidos (id, loja_id, numero_pedido, token_publico, status, status_pagamento, dados, criado_em, atualizado_em)
            VALUES ($1, $2, $3, $4, $5, $6, $7, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)

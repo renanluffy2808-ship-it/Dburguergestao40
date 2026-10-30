@@ -917,7 +917,7 @@ export const ConfiguracoesView: React.FC = () => {
               <form onSubmit={conectarPostgresNeon} className="space-y-3 pt-2">
                 <p className="text-[11px] text-zinc-400 leading-relaxed">
                   Cole abaixo a <strong>Connection String</strong> copiada do Neon (começa com <code className="text-amber-300">postgresql://...</code>).
-                  O sistema testará a conexão, criará as tabelas e migrará os <strong>8 pedidos</strong>, produtos e fotos automaticamente.
+                  O sistema testará a conexão, criará as tabelas e migrará seus pedidos, produtos e fotos automaticamente.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-2">
                   <input
