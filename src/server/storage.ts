@@ -621,7 +621,7 @@ class StorageManager {
             estabelecimentoId: safeId,
             cardapioTheme: parsed.config?.cardapioTheme || TEMA_CARDAPIO_PADRAO,
           },
-          produtos: Array.isArray(parsed.produtos) ? parsed.produtos : PRODUTOS_PADRAO,
+          produtos: Array.isArray(parsed.produtos) ? parsed.produtos : [],
           categorias: Array.isArray(parsed.categorias) ? parsed.categorias : CATEGORIAS_PADRAO,
           adicionais: Array.isArray(parsed.adicionais) ? parsed.adicionais : ADICIONAIS_PADRAO,
           pedidos: (Array.isArray(parsed.pedidos) ? parsed.pedidos : []).filter((p: any) => p && !PEDIDOS_TESTE_FICTICIOS_IDS.has(p.id)),
@@ -643,7 +643,7 @@ class StorageManager {
         slugLoja: safeId,
         cardapioTheme: { ...TEMA_CARDAPIO_PADRAO },
       },
-      produtos: PRODUTOS_PADRAO,
+      produtos: [],
       categorias: CATEGORIAS_PADRAO,
       adicionais: ADICIONAIS_PADRAO,
       pedidos: [],
@@ -683,6 +683,31 @@ class StorageManager {
       this.persistirNoPostgres(safeId, storeData).catch((err) => {
         console.error(`[Storage] Erro ao persistir store ${safeId} no PostgreSQL:`, err);
       });
+    }
+  }
+
+  public async salvarStoreAsync(lojaIdOrData: string | StoreData, maybeData?: StoreData): Promise<void> {
+    let safeId = 'default';
+    let storeData: StoreData;
+    if (typeof lojaIdOrData === 'string') {
+      safeId = sanitizarLojaId(lojaIdOrData);
+      storeData = maybeData!;
+    } else {
+      storeData = lojaIdOrData;
+      safeId = sanitizarLojaId(storeData.config?.estabelecimentoId || 'default');
+    }
+
+    this.storesCache.set(safeId, storeData);
+
+    // 1. Gravação local com atomic rename (lança erro se falhar no disco)
+    const caminho = this.getCaminhoLoja(safeId);
+    const tempPath = `${caminho}.tmp`;
+    fs.writeFileSync(tempPath, JSON.stringify(storeData, null, 2), 'utf-8');
+    fs.renameSync(tempPath, caminho);
+
+    // 2. Gravação confirmada no PostgreSQL se disponível (aguarda finalização da transação)
+    if (this.isPgReady && this.pgPool) {
+      await this.persistirNoPostgres(safeId, storeData);
     }
   }
 
@@ -728,6 +753,48 @@ class StorageManager {
              updated_at = CURRENT_TIMESTAMP`,
           [prod.id, lojaId, JSON.stringify(prod), prod.ativo, prod.ordem || 999]
         );
+      }
+
+      // Categorias
+      if (Array.isArray(store.categorias)) {
+        if (store.categorias.length === 0) {
+          await client.query('DELETE FROM dburger_categorias WHERE loja_id = $1', [lojaId]);
+        } else {
+          const idsCats = store.categorias.map((c) => c.id);
+          await client.query('DELETE FROM dburger_categorias WHERE loja_id = $1 AND NOT (id = ANY($2))', [lojaId, idsCats]);
+          for (const cat of store.categorias) {
+            await client.query(
+              `INSERT INTO dburger_categorias (id, loja_id, dados, ordem, ativa)
+               VALUES ($1, $2, $3, $4, $5)
+               ON CONFLICT (id, loja_id) DO UPDATE SET
+                 dados = EXCLUDED.dados,
+                 ordem = EXCLUDED.ordem,
+                 ativa = EXCLUDED.ativa`,
+              [cat.id, lojaId, JSON.stringify(cat), cat.ordem || 999, cat.ativa !== false]
+            );
+          }
+        }
+      }
+
+      // Adicionais
+      if (Array.isArray(store.adicionais)) {
+        if (store.adicionais.length === 0) {
+          await client.query('DELETE FROM dburger_adicionais WHERE loja_id = $1', [lojaId]);
+        } else {
+          const idsAdics = store.adicionais.map((a) => a.id);
+          await client.query('DELETE FROM dburger_adicionais WHERE loja_id = $1 AND NOT (id = ANY($2))', [lojaId, idsAdics]);
+          for (const adic of store.adicionais) {
+            await client.query(
+              `INSERT INTO dburger_adicionais (id, loja_id, dados, ordem, ativo)
+               VALUES ($1, $2, $3, $4, $5)
+               ON CONFLICT (id, loja_id) DO UPDATE SET
+                 dados = EXCLUDED.dados,
+                 ordem = EXCLUDED.ordem,
+                 ativo = EXCLUDED.ativo`,
+              [adic.id, lojaId, JSON.stringify(adic), adic.ordem || 999, adic.ativo !== false]
+            );
+          }
+        }
       }
 
       // Pedidos (remove pedidos apagados/zerados e ignora pedidos fictícios de teste)

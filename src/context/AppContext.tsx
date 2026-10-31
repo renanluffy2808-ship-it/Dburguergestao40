@@ -10,6 +10,8 @@ import {
   MovimentacaoEstoque,
   PedidoVenda,
   ProdutoCardapio,
+  CategoriaCardapio,
+  AdicionalCardapio,
   ItemFichaTecnica,
   StatusPedido,
   StatusPagamento,
@@ -105,7 +107,11 @@ interface AppContextType {
   atualizarConfigPedidosPagamentos: (dados: Partial<ConfiguracaoPedidosPagamentos>) => Promise<void>;
   atualizarStatusPedidoOnline: (id: string, novoStatus: StatusPedido, novoStatusPagamento?: StatusPagamento) => Promise<void>;
   sincronizarPedidosOnline: () => Promise<void>;
-  publicarCardapioOnline: () => Promise<{ sucesso: boolean; urlPublica?: string; erro?: string; totalProdutos?: number }>;
+  publicarCardapioOnline: (
+    produtosCustom?: ProdutoCardapio[],
+    categoriasCustom?: CategoriaCardapio[],
+    adicionaisCustom?: AdicionalCardapio[]
+  ) => Promise<{ sucesso: boolean; urlPublica?: string; erro?: string; totalProdutos?: number }>;
 
   // Backup e Reset
   exportarBackupJson: () => string;
@@ -957,35 +963,53 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   /**
    * Publica o cardápio local para a camada online na nuvem.
-   * Envia os produtos cadastrados, configurações e tema visual.
+   * Envia os produtos cadastrados, configurações e tema visual diretamente para o Render.
    */
-  const publicarCardapioOnline = async (): Promise<{
+  const publicarCardapioOnline = async (
+    produtosCustom?: ProdutoCardapio[],
+    categoriasCustom?: CategoriaCardapio[],
+    adicionaisCustom?: AdicionalCardapio[]
+  ): Promise<{
     sucesso: boolean;
     urlPublica?: string;
     erro?: string;
     totalProdutos?: number;
   }> => {
     try {
+      const prodsToPublish = produtosCustom !== undefined ? produtosCustom : produtos;
+
+      // Se produtosCustom foi passado, atualiza também o estado do Context e localStorage
+      if (produtosCustom !== undefined) {
+        setProdutos(produtosCustom);
+        try {
+          localStorage.setItem(`${STORAGE_KEY}_PRODUTOS`, JSON.stringify(produtosCustom));
+        } catch {}
+      }
+
       let temaSalvo = null;
       try {
         const t = localStorage.getItem('DBURGER_THEME_CONFIG');
         if (t) temaSalvo = JSON.parse(t);
       } catch {}
 
-      let categoriasSalvas = null;
-      try {
-        const c = localStorage.getItem('DBURGER_GESTAO_CATEGORIAS');
-        if (c) categoriasSalvas = JSON.parse(c);
-      } catch {}
+      let categoriasSalvas = categoriasCustom;
+      if (!categoriasSalvas) {
+        try {
+          const c = localStorage.getItem('DBURGER_GESTAO_CATEGORIAS');
+          if (c) categoriasSalvas = JSON.parse(c);
+        } catch {}
+      }
 
-      let adicionaisSalvos = null;
-      try {
-        const a = localStorage.getItem('DBURGER_GESTAO_ADICIONAIS');
-        if (a) adicionaisSalvos = JSON.parse(a);
-      } catch {}
+      let adicionaisSalvos = adicionaisCustom;
+      if (!adicionaisSalvos) {
+        try {
+          const a = localStorage.getItem('DBURGER_GESTAO_ADICIONAIS');
+          if (a) adicionaisSalvos = JSON.parse(a);
+        } catch {}
+      }
 
       const payload = {
-        produtos,
+        produtos: prodsToPublish,
         categorias: categoriasSalvas || undefined,
         adicionais: adicionaisSalvos || undefined,
         config,
@@ -996,7 +1020,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
       // Salva cópia de segurança do cardápio publicado no localStorage para persistência offline
       try {
-        localStorage.setItem('DBURGER_GESTAO_CARDAPIO_OFFLINE', JSON.stringify(produtos));
+        localStorage.setItem('DBURGER_GESTAO_CARDAPIO_OFFLINE', JSON.stringify(prodsToPublish));
         localStorage.setItem('DBURGER_GESTAO_CARDAPIO_PUBLICADO', JSON.stringify(payload));
       } catch {}
 
@@ -1036,7 +1060,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         return {
           sucesso: true,
           urlPublica: urlPublicaFinal,
-          totalProdutos: data.totalProdutos !== undefined ? data.totalProdutos : produtos.length,
+          totalProdutos: data.totalProdutos !== undefined ? data.totalProdutos : prodsToPublish.length,
         };
       } else {
         const err = await res.json().catch(() => ({}));

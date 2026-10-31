@@ -308,22 +308,25 @@ export const CardapioView: React.FC = () => {
           // Helper para detectar se uma lista é o catálogo de demonstração inicial
           const isApenasDemo = (lista: ProdutoCardapio[]) => {
             if (!Array.isArray(lista) || lista.length === 0) return false;
-            if (lista.length !== PRODUTOS_PADRAO.length) return false;
             const idsPadrao = new Set(PRODUTOS_PADRAO.map((p) => p.id));
             return lista.every((p) => idsPadrao.has(p.id));
           };
 
           // REGRA DE PROTEÇÃO LOCAL-FIRST:
-          // Se o usuário já possui produtos personalizados locais no aparelho (fruto de seu trabalho):
-          if (produtosContext.length > 0) {
-            const localTemCustomizacao = !isApenasDemo(produtosContext);
-            if (localTemCustomizacao && isApenasDemo(prodsData)) {
-              // O servidor ainda está com a demonstração antiga!
-              // PRESERVA OS DADOS LOCAIS DO USUÁRIO E ATUALIZA O SERVIDOR IMEDIATAMENTE!
-              console.log('[Cardápio] Preservando produtos personalizados locais e sincronizando com o servidor...');
-              publicarCardapioOnline().catch(() => {});
-              return;
+          // Se o servidor retornar itens de demonstração, NUNCA sobrescreve os dados locais!
+          if (isApenasDemo(prodsData)) {
+            console.log('[Cardápio] Servidor retornou itens de demonstração. Bloqueando sobrescrita local.');
+            if (produtosContext.length > 0 && !isApenasDemo(produtosContext)) {
+              publicarCardapioOnline(produtosContext, categorias, adicionais).catch(() => {});
             }
+            return;
+          }
+
+          // Se o usuário possui produtos locais e o servidor está vazio, sincroniza locais para o servidor:
+          if (produtosContext.length > 0 && prodsData.length === 0 && !appZerado) {
+            console.log('[Cardápio] Servidor vazio. Publicando produtos locais para a nuvem...');
+            publicarCardapioOnline(produtosContext, categorias, adicionais).catch(() => {});
+            return;
           }
 
           if (appZerado && produtosContext.length === 0 && prodsData.length > 0) {
@@ -336,9 +339,11 @@ export const CardapioView: React.FC = () => {
               },
               body: JSON.stringify({ produtos: [] }),
             }).catch(() => {});
-          } else if (prodsData.length > 0) {
-            setProdutos(prodsData);
-            substituirTodosProdutos(prodsData);
+          } else if (prodsData.length > 0 && !isApenasDemo(prodsData)) {
+            if (produtosContext.length === 0) {
+              setProdutos(prodsData);
+              substituirTodosProdutos(prodsData);
+            }
           }
         }
       }
@@ -453,7 +458,7 @@ export const CardapioView: React.FC = () => {
   const handlePublicarCardapio = async () => {
     setPublicandoNuvem(true);
     try {
-      const res = await publicarCardapioOnline();
+      const res = await publicarCardapioOnline(produtos, categorias, adicionais);
       setModalPublicacao({
         sucesso: res.sucesso,
         url: res.urlPublica,

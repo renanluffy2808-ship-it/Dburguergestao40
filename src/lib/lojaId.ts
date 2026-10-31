@@ -20,12 +20,13 @@ export function obterLojaIdAtual(): string {
   const lojaUrl = params.get('loja');
   if (lojaUrl && lojaUrl.trim()) {
     const limpo = lojaUrl.toLowerCase().trim().replace(/[^a-z0-9_-]/g, '');
-    if (limpo) {
+    if (limpo && limpo !== 'dburger') {
       try {
         localStorage.setItem(STORAGE_KEY_LOJA, limpo);
       } catch {}
       return limpo;
     }
+    return 'default';
   }
 
   // 2. LocalStorage do dispositivo (instalação persistente no celular)
@@ -33,7 +34,7 @@ export function obterLojaIdAtual(): string {
     const salvo = localStorage.getItem(STORAGE_KEY_LOJA);
     if (salvo && salvo.trim()) {
       const limpo = salvo.toLowerCase().trim().replace(/[^a-z0-9_-]/g, '');
-      if (limpo) return limpo;
+      if (limpo && limpo !== 'dburger') return limpo;
     }
   } catch {}
 
@@ -68,11 +69,16 @@ export function isAndroidApp(): boolean {
 export function getServidorOnlineUrl(): string {
   if (typeof window === 'undefined') return SERVIDOR_ONLINE_PADRAO;
 
-  // 1. Configuração personalizada pelo admin no localStorage
+  // 1. Configuração personalizada pelo admin no localStorage (ignora URLs antigas de preview do Cloud Run ou localhost)
   try {
     const custom = localStorage.getItem(STORAGE_KEY_SERVER_URL);
     if (custom && custom.trim().startsWith('http')) {
-      return custom.trim().replace(/\/+$/, '');
+      const trimmed = custom.trim().replace(/\/+$/, '');
+      if (trimmed.includes('.run.app') || trimmed.includes('localhost')) {
+        localStorage.removeItem(STORAGE_KEY_SERVER_URL);
+      } else {
+        return trimmed;
+      }
     }
   } catch {}
 

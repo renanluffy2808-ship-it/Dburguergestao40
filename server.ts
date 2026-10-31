@@ -1712,57 +1712,65 @@ async function startServer() {
   // -------------------------------------------------------------
   // API: Publicação Oficial do Cardápio Local para a Nuvem
   // -------------------------------------------------------------
-  app.post('/api/sync/publicar-cardapio', requireAdminAuth, (req, res) => {
-    const { store, lojaId } = req as any;
-    const { produtos, categorias, adicionais, config, theme } = req.body;
+  app.post('/api/sync/publicar-cardapio', requireAdminAuth, async (req, res) => {
+    try {
+      const { store, lojaId } = req as any;
+      const { produtos, categorias, adicionais, config, theme } = req.body;
 
-    if (Array.isArray(produtos)) {
-      store.produtos = produtos.map((p: any) => ({
-        ...p,
-        ativo: p.ativo !== false,
-      }));
-    }
-    if (Array.isArray(categorias)) {
-      store.categorias = categorias;
-    }
-    if (Array.isArray(adicionais)) {
-      store.adicionais = adicionais;
-    }
-    if (config && typeof config === 'object') {
-      store.config = {
-        ...store.config,
-        ...config,
-        pedidosPagamentos: {
-          ...(store.config.pedidosPagamentos || {}),
-          ...(config.pedidosPagamentos || {}),
-        },
-      };
-    }
-    if (theme && typeof theme === 'object') {
-      if (!store.config.cardapioTheme) store.config.cardapioTheme = {};
-      store.config.cardapioTheme = { ...store.config.cardapioTheme, ...theme };
-    }
+      if (Array.isArray(produtos)) {
+        store.produtos = produtos.map((p: any) => ({
+          ...p,
+          ativo: p.ativo !== false,
+        }));
+      }
+      if (Array.isArray(categorias)) {
+        store.categorias = categorias;
+      }
+      if (Array.isArray(adicionais)) {
+        store.adicionais = adicionais;
+      }
+      if (config && typeof config === 'object') {
+        store.config = {
+          ...store.config,
+          ...config,
+          pedidosPagamentos: {
+            ...(store.config.pedidosPagamentos || {}),
+            ...(config.pedidosPagamentos || {}),
+          },
+        };
+      }
+      if (theme && typeof theme === 'object') {
+        if (!store.config.cardapioTheme) store.config.cardapioTheme = {};
+        store.config.cardapioTheme = { ...store.config.cardapioTheme, ...theme };
+      }
 
-    salvarStore(lojaId, store);
+      await storage.salvarStoreAsync(lojaId, store);
 
-    const rawHost = req.headers['x-forwarded-host'] || req.get('host') || 'dburger-gestao.onrender.com';
-    const hostStr = String(rawHost);
-    const isGooglePreview = hostStr.includes('.run.app') || hostStr.includes('localhost');
-    const publicHost = isGooglePreview ? 'dburger-gestao.onrender.com' : hostStr;
-    const protocol = isGooglePreview ? 'https' : (req.headers['x-forwarded-proto'] || req.protocol || 'https');
-    const urlPublica = `${protocol}://${publicHost}/?loja=${lojaId}&view=cardapio`;
+      const rawHost = req.headers['x-forwarded-host'] || req.get('host') || 'dburger-gestao.onrender.com';
+      const hostStr = String(rawHost);
+      const isGooglePreview = hostStr.includes('.run.app') || hostStr.includes('localhost');
+      const publicHost = isGooglePreview ? 'dburger-gestao.onrender.com' : hostStr;
+      const protocol = isGooglePreview ? 'https' : (req.headers['x-forwarded-proto'] || req.protocol || 'https');
+      const urlPublica = `${protocol}://${publicHost}/?loja=${lojaId}&view=cardapio`;
 
-    console.log(`[Publicação] Cardápio da loja "${lojaId}" publicado com sucesso! ${store.produtos.length} produtos.`);
+      console.log(`[Publicação] Cardápio da loja "${lojaId}" publicado e gravado com sucesso! ${store.produtos.length} produtos.`);
 
-    return res.json({
-      sucesso: true,
-      publicadoEm: new Date().toISOString(),
-      urlPublica,
-      totalProdutos: (store.produtos || []).length,
-      totalCategorias: (store.categorias || []).length,
-      totalAdicionais: (store.adicionais || []).length,
-      mensagem: 'Cardápio publicado online com sucesso!',
-    });
+      return res.json({
+        sucesso: true,
+        publicadoEm: new Date().toISOString(),
+        urlPublica,
+        totalProdutos: (store.produtos || []).length,
+        totalCategorias: (store.categorias || []).length,
+        totalAdicionais: (store.adicionais || []).length,
+        mensagem: 'Cardápio publicado online com sucesso!',
+      });
+    } catch (err: any) {
+      console.error('[Publicação] Falha ao persistir cardápio no servidor:', err);
+      return res.status(500).json({
+        sucesso: false,
+        erro: 'Falha ao gravar os dados do cardápio no banco de dados do servidor: ' + (err.message || err),
+      });
+    }
   });
 
   // -------------------------------------------------------------
