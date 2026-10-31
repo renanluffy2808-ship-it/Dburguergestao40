@@ -6,8 +6,8 @@
 const STORAGE_KEY_LOJA = 'DBURGER_LOJA_ID';
 const STORAGE_KEY_SERVER_URL = 'DBURGER_SERVER_URL';
 
-// URL padrão do backend online no Cloud Run para o cardápio público e sincronização
-export const SERVIDOR_ONLINE_PADRAO = 'https://ais-pre-7efzph6crbemm74j5vlixo-848988395362.us-east1.run.app';
+// URL oficial do backend online de produção no Render para o cardápio público e sincronização
+export const SERVIDOR_ONLINE_PADRAO = 'https://dburger-gestao.onrender.com';
 
 /**
  * Obtém o ID da loja/estabelecimento desta instalação.
@@ -76,12 +76,19 @@ export function getServidorOnlineUrl(): string {
     }
   } catch {}
 
-  // 2. Se estiver rodando na web real (não Android WebView local), usa o origin atual
+  // 2. Se estiver rodando na web no Render ou domínio público próprio (não em localhost e não no preview protegido do AI Studio)
   const origin = window.location.origin || '';
-  if (!isAndroidApp() && origin && origin.startsWith('http') && !origin.includes('localhost:3000')) {
+  if (
+    !isAndroidApp() &&
+    origin &&
+    origin.startsWith('http') &&
+    !origin.includes('localhost') &&
+    !origin.includes('.run.app')
+  ) {
     return origin.replace(/\/+$/, '');
   }
 
+  // 3. Servidor oficial de produção no Render
   return SERVIDOR_ONLINE_PADRAO;
 }
 

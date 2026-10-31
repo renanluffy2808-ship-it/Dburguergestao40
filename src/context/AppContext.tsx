@@ -66,6 +66,8 @@ interface AppContextType {
   duplicarProduto: (id: string) => void;
   inativarProduto: (id: string) => void;
   excluirProduto: (id: string) => void;
+  substituirTodosProdutos: (novosProdutos: ProdutoCardapio[]) => void;
+  reordenarProdutos: (novosProdutos: ProdutoCardapio[]) => void;
   calcularCmvProduto: (produto: ProdutoCardapio) => number;
   calcularAnaliseProduto: (produto: ProdutoCardapio) => ResultadoPrecificacao;
 
@@ -812,6 +814,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setProdutos((prev) => prev.filter((p) => p.id !== id));
   };
 
+  const substituirTodosProdutos = (novosProdutos: ProdutoCardapio[]) => {
+    if (Array.isArray(novosProdutos)) {
+      setProdutos(novosProdutos);
+    }
+  };
+
+  const reordenarProdutos = (novosProdutos: ProdutoCardapio[]) => {
+    if (Array.isArray(novosProdutos)) {
+      setProdutos(novosProdutos);
+    }
+  };
+
   // Fluxo de caixa manual
   const adicionarLancamentoManual = (dados: {
     tipo: 'ENTRADA' | 'SAIDA';
@@ -978,9 +992,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         theme: temaSalvo || config.cardapioTheme,
       };
 
+      const serverOnlineUrl = getServidorOnlineUrl();
+
+      // Salva cópia de segurança do cardápio publicado no localStorage para persistência offline
+      try {
+        localStorage.setItem('DBURGER_GESTAO_CARDAPIO_OFFLINE', JSON.stringify(produtos));
+        localStorage.setItem('DBURGER_GESTAO_CARDAPIO_PUBLICADO', JSON.stringify(payload));
+      } catch {}
+
       await garantirTokenAdminServidor().catch(() => {});
 
-      const res = await fetch(apiUrl('/api/sync/publicar-cardapio'), {
+      // 1. Sempre publica no servidor online oficial de produção (Render)
+      const targetUrl = `${serverOnlineUrl}/api/sync/publicar-cardapio`;
+      const res = await fetch(targetUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -990,28 +1014,44 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         body: JSON.stringify(payload),
       });
 
+      // 2. Se estiver no preview e a URL online for diferente do host local, sincroniza local também
+      if (typeof window !== 'undefined' && window.location.origin && !serverOnlineUrl.includes(window.location.host)) {
+        fetch('/api/sync/publicar-cardapio', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...getAdminAuthHeader(),
+            ...getLojaHeader(),
+          },
+          body: JSON.stringify(payload),
+        }).catch(() => {});
+      }
+
       if (res.ok) {
         const data = await res.json();
+        const urlPublicaFinal = data.urlPublica && !data.urlPublica.includes('.run.app')
+          ? data.urlPublica
+          : gerarUrlCardapioPublico();
+
         return {
           sucesso: true,
-          urlPublica: data.urlPublica || gerarUrlCardapioPublico(),
-          totalProdutos: data.totalProdutos || produtos.length,
+          urlPublica: urlPublicaFinal,
+          totalProdutos: data.totalProdutos !== undefined ? data.totalProdutos : produtos.length,
         };
       } else {
         const err = await res.json().catch(() => ({}));
-        const serverUrl = isAndroidApp() ? getServidorOnlineUrl() : (typeof window !== 'undefined' ? window.location.origin : '');
         return {
           sucesso: false,
-          erro: err.erro || `O servidor (${serverUrl}) retornou status HTTP ${res.status}. Verifique se a URL online está ativa e com a rota pública liberada.`,
+          erro: err.erro || `O servidor (${serverOnlineUrl}) retornou status HTTP ${res.status}. Verifique se a URL online está ativa e com a rota pública liberada.`,
         };
       }
     } catch (e: any) {
-      const serverUrl = isAndroidApp() ? getServidorOnlineUrl() : (typeof window !== 'undefined' ? window.location.origin : '');
+      const serverUrl = getServidorOnlineUrl();
       return {
         sucesso: false,
         erro: isAndroidApp()
           ? `Não foi possível conectar ao servidor online (${serverUrl}). Verifique se a URL do backend está ativa na internet ou configure seu endereço em Configurações > Servidor Online. Seus dados estão 100% preservados no dispositivo local.`
-          : 'Não foi possível conectar ao servidor para publicar o cardápio. Verifique se o servidor backend está ativo.',
+          : `Não foi possível conectar ao servidor (${serverUrl}) para publicar o cardápio. Verifique se o servidor backend está ativo.`,
       };
     }
   };
@@ -1019,7 +1059,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // Sincronizar produtos com o backend para o cardápio público
   useEffect(() => {
     if (Array.isArray(produtos)) {
-      fetch(apiUrl('/api/sync/admin-produtos'), {
+      const serverOnlineUrl = getServidorOnlineUrl();
+      fetch(`${serverOnlineUrl}/api/sync/admin-produtos`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -1028,6 +1069,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         },
         body: JSON.stringify({ produtos }),
       }).catch(() => {});
+
+      if (typeof window !== 'undefined' && window.location.origin && !serverOnlineUrl.includes(window.location.host)) {
+        fetch('/api/sync/admin-produtos', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...getAdminAuthHeader(),
+            ...getLojaHeader(),
+          },
+          body: JSON.stringify({ produtos }),
+        }).catch(() => {});
+      }
     }
   }, [produtos]);
 
@@ -1233,6 +1286,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         duplicarProduto,
         inativarProduto,
         excluirProduto,
+        substituirTodosProdutos,
+        reordenarProdutos,
         calcularCmvProduto,
         calcularAnaliseProduto,
         registrarMovimentacaoEstoque,

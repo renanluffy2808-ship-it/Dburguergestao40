@@ -155,7 +155,9 @@ export const CardapioPublicoView: React.FC<Props> = ({ onVoltarPainel, isAdmin =
       } else {
         // Fallback para itens locais salvos se o servidor não retornou
         try {
-          const prodsSalvos = localStorage.getItem('DBURGER_GESTAO_CARDAPIO_OFFLINE');
+          const prodsSalvos =
+            localStorage.getItem('DBURGER_GESTAO_CARDAPIO_OFFLINE') ||
+            localStorage.getItem('DBURGER_GESTAO_DATABASE_V1_PRODUTOS');
           if (prodsSalvos) {
             const parsed = JSON.parse(prodsSalvos);
             if (Array.isArray(parsed) && parsed.length > 0) setProdutos(parsed);
@@ -165,7 +167,9 @@ export const CardapioPublicoView: React.FC<Props> = ({ onVoltarPainel, isAdmin =
     } catch (e) {
       console.warn('Erro ao carregar cardápio online, carregando cópia local:', e);
       try {
-        const prodsSalvos = localStorage.getItem('DBURGER_GESTAO_CARDAPIO_OFFLINE');
+        const prodsSalvos =
+          localStorage.getItem('DBURGER_GESTAO_CARDAPIO_OFFLINE') ||
+          localStorage.getItem('DBURGER_GESTAO_DATABASE_V1_PRODUTOS');
         if (prodsSalvos) {
           const parsed = JSON.parse(prodsSalvos);
           if (Array.isArray(parsed) && parsed.length > 0) setProdutos(parsed);

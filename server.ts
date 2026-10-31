@@ -143,9 +143,9 @@ async function startServer() {
   // Middleware: Autenticação de Administrador
   // -------------------------------------------------------------
   const requireAdminAuth = (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    // 1. PIN de cabeçalho administrativo (suporte direto para APK e rotas de sincronização seguras)
-    const pinHeader = req.headers['x-admin-pin'] as string;
-    if (pinHeader && (pinHeader === '1234' || pinHeader === 'admin123')) {
+    // 1. PIN de cabeçalho ou parâmetro de URL (suporte para APK, links diretos de download e navegador)
+    const pin = (req.headers['x-admin-pin'] as string) || (req.query.pin as string) || (req.query.adminPin as string);
+    if (pin && (pin === '1234' || pin === 'admin123')) {
       return next();
     }
 
@@ -1745,9 +1745,12 @@ async function startServer() {
 
     salvarStore(lojaId, store);
 
-    const protocol = req.headers['x-forwarded-proto'] || req.protocol || 'https';
-    const host = req.headers['x-forwarded-host'] || req.get('host');
-    const urlPublica = `${protocol}://${host}/?loja=${lojaId}&view=cardapio`;
+    const rawHost = req.headers['x-forwarded-host'] || req.get('host') || 'dburger-gestao.onrender.com';
+    const hostStr = String(rawHost);
+    const isGooglePreview = hostStr.includes('.run.app') || hostStr.includes('localhost');
+    const publicHost = isGooglePreview ? 'dburger-gestao.onrender.com' : hostStr;
+    const protocol = isGooglePreview ? 'https' : (req.headers['x-forwarded-proto'] || req.protocol || 'https');
+    const urlPublica = `${protocol}://${publicHost}/?loja=${lojaId}&view=cardapio`;
 
     console.log(`[Publicação] Cardápio da loja "${lojaId}" publicado com sucesso! ${store.produtos.length} produtos.`);
 
